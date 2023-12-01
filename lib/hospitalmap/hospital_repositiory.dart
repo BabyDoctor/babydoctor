@@ -26,41 +26,53 @@ import 'hospital.dart';
 class HospitalGetInfo {
   String apiKey =
       "FdCygokv8DjHGgi3uWCGv8PErOOBWZW1GQwuqcc%2FRV2y2fRJR6vUALj193hB5oOF2ykpgwkK%2FGzeeDUneZ0Cvw%3D%3D";
-  
+
   //리스트로 가져올 병원의 개수
   final int num = 30;
 
   Future<List<Location>?> loadLoc(double long, double lat) async {
+    const int httpRequestTimeout = 20; //20초가 지나면 자동 취소
+
     //numOfRows를 수정하여 검색되는 병원수 조절
     String baseUrl =
         "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?WGS84_LON=$long&WGS84_LAT=$lat&page_No=1&numOfRows=$num&serviceKey=$apiKey";
     //테스트용 출력
-    //print(lat);
-    //print(long);
+    print(lat);
+    print(long);
     //요청 보내기
-    final response = await http.get(Uri.parse(baseUrl));
-    // 정상적으로 데이터를 불러왔다면
-    if (response.statusCode == 200) {
-      // 데이터 가져오기
-      final body = convert.utf8.decode(response.bodyBytes);
+    try {
+      final response = await http.get(
+        Uri.parse(baseUrl),
+        // Timeout 설정(30초)
+        headers: {'Content-Type': 'application/json'},
+      ).timeout(const Duration(seconds: httpRequestTimeout));
+      print("get1");
 
-      // xml => json으로 변환
-      final xml = Xml2Json()..parse(body);
-      final json = xml.toParker();
+      // 정상적으로 데이터를 불러왔다면
+      if (response.statusCode == 200) {
+        // 데이터 가져오기
+        final body = convert.utf8.decode(response.bodyBytes);
 
-      // 필요한 데이터 찾기
-      Map<String, dynamic> jsonResult = convert.json.decode(json);
-      final jsonLoc = jsonResult['response']['body']['items'];
+        // xml => json으로 변환
+        final xml = Xml2Json()..parse(body);
+        final json = xml.toParker();
 
-      // 필요한 데이터 그룹이 있다면
-      if (jsonLoc['item'] != null) {
-        // map을 통해 데이터를 전달하기 위해 객체인 List로 만둘가
-        List<dynamic> list = jsonLoc['item'];
+        // 필요한 데이터 찾기
+        Map<String, dynamic> jsonResult = convert.json.decode(json);
+        final jsonLoc = jsonResult['response']['body']['items'];
 
-        return list.map<Location>((item) => Location.fromJson(item)).toList();
+        // 필요한 데이터 그룹이 있다면
+        if (jsonLoc['item'] != null) {
+          // map을 통해 데이터를 전달하기 위해 객체인 List로 만둘가
+          List<dynamic> list = jsonLoc['item'];
+
+          return list.map<Location>((item) => Location.fromJson(item)).toList();
+        }
+      } else {
+        throw Exception('불러오기 실패!!!: ${response.statusCode}');
       }
-    } else {
-      throw Exception('불러오기 실패!!!: ${response.statusCode}');
+    } catch (error) {
+      print('Error during HTTP request: $error');
     }
     return null;
   }
@@ -78,7 +90,7 @@ class HospitalGetInfo2 {
   List<String> distance = [];
   List<HospitalCode> result = [];
   int processedRequests = 0;
-  
+
   Future<List<HospitalCode>?> loadCode(List<Location> locList) async {
     //ids에 구할 병윈의 아이디를 모음 + 거리값을 추가해둠
     ids = locList.map((location) => location.hpid ?? "").toList();
@@ -89,10 +101,10 @@ class HospitalGetInfo2 {
 
     //테스트용
     //print("ids: $ids");
-    
-    const int delayBetweenRequests = 100;//보내는 간격 100ms
-    const int httpRequestTimeout = 10;//30초가 지나면 자동 취소
-    
+
+    const int delayBetweenRequests = 10; //보내는 간격 10ms
+    const int httpRequestTimeout = 5; //5초가 지나면 자동 취소
+
     // Future.wait를 사용하여 병렬 처리
     await Future.wait(ids.map((String id) async {
       // 중복이 되면 버림
@@ -110,7 +122,6 @@ class HospitalGetInfo2 {
           // Timeout 설정(30초)
           headers: {'Content-Type': 'application/json'},
         ).timeout(const Duration(seconds: httpRequestTimeout));
-
         // 정상적으로 데이터를 불러왔다면
         if (response.statusCode == 200) {
           // 데이터 가져오기

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'hospital.dart';
 
 class ListDisplay extends StatelessWidget {
@@ -70,7 +71,7 @@ class ListDisplay extends StatelessWidget {
       itemCount: hospital.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-            height: 300,
+            height: 350,
             color: Colors.white,
             child: _displayHospital(hospital[index]));
       },

@@ -2,16 +2,22 @@
 class Location {
   String? distance; // 현재 위치에서의 거리(필수)
   String? hpid; // 병원 아이디(필수)
+  String? dutyDiv; // 병원 종류 필요?
+  String? dutyName; // 병원 이름 (필수)
 
   Location({
     this.distance,
     this.hpid,
+    this.dutyDiv,
+    this.dutyName,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
       distance: json["distance"] as String,
       hpid: json["hpid"] as String,
+      dutyDiv: json['dutyDiv'] as String? ?? '',
+      dutyName: json['dutyName'] as String? ?? '',
     );
   }
   // Override hashCode and operator == to identify instances by hpid
