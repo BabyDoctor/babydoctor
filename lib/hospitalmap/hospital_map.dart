@@ -10,32 +10,35 @@ import 'hospital_provider.dart';
 import 'list_display.dart';
 
 class HospitalMap extends StatefulWidget {
-  const HospitalMap(this.whereToGo, {Key? key}) : super(key: key);
+  const HospitalMap(this.whereToGo, this.hospitalProvider, {Key? key}) : super(key: key);
 
   final String whereToGo;
+  final HospitalProvider hospitalProvider;
 
   @override
   _HospitalMapState createState() => _HospitalMapState();
 }
 
 class _HospitalMapState extends State<HospitalMap> {
-  final HospitalProvider hospitalProvider = HospitalProvider();
 
   @override
   Widget build(BuildContext context) {
     final Completer<NaverMapController> mapControllerCompleter = Completer();
 
-    return FutureBuilder(
-      future: _init(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return _buildLoadingScreen();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return _buildMainScreen(mapControllerCompleter);
-        }
-      },
+    return PopScope(
+      canPop: false,
+      child: FutureBuilder(
+        future: _init(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return _buildLoadingScreen();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return _buildMainScreen(mapControllerCompleter);
+          }
+        },
+      ),
     );
   }
 
@@ -78,15 +81,15 @@ class _HospitalMapState extends State<HospitalMap> {
         ),
         body: SlidingUpPanel(
           panel: ListDisplay(
-              hospitalProvider.getHospitalCodeList(widget.whereToGo)),
+              widget.hospitalProvider.getHospitalCodeList(widget.whereToGo)),
           body: Padding(
             padding: const EdgeInsets.only(bottom: 180.0),
             child: NaverMap(
               options: NaverMapViewOptions(
                 initialCameraPosition: NCameraPosition(
                   target: NLatLng(
-                    hospitalProvider.lat,
-                    hospitalProvider.long,
+                    widget.hospitalProvider.lat,
+                    widget.hospitalProvider.long,
                   ),
                   zoom: 12,
                 ),
@@ -105,8 +108,8 @@ class _HospitalMapState extends State<HospitalMap> {
 
                 _addCurrentLocationMarker(controller);
 
-                if (hospitalProvider.markers.isNotEmpty) {
-                  controller.addOverlayAll(hospitalProvider.markers);
+                if (widget.hospitalProvider.markers.isNotEmpty) {
+                  controller.addOverlayAll(widget.hospitalProvider.markers);
                 }
 
                 mapControllerCompleter.complete(controller);
@@ -124,8 +127,8 @@ class _HospitalMapState extends State<HospitalMap> {
     NMarker currMarker = NMarker(
       id: "현재위치",
       position: NLatLng(
-        hospitalProvider.lat,
-        hospitalProvider.long,
+        widget.hospitalProvider.lat,
+        widget.hospitalProvider.long,
       ),
       iconTintColor: Colors.transparent,
     );
@@ -145,8 +148,7 @@ class _HospitalMapState extends State<HospitalMap> {
   }
 
   Future<void> _init() async {
-    await hospitalProvider.getLoc();
-    await hospitalProvider.loadLocation();
-    await hospitalProvider.loadMarker(widget.whereToGo);
+    await widget.hospitalProvider.loadLocation();
+    await widget.hospitalProvider.loadMarker(widget.whereToGo);
   }
 }

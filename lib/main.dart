@@ -8,6 +8,7 @@ import 'dailycheck.dart';
 import 'diary/calendar.dart';
 import 'feedingroom.dart';
 import 'findhospital.dart';
+import 'hospitalmap/hospital_provider.dart';
 import 'my_container.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'FindSymptoms.dart';
@@ -16,6 +17,7 @@ import 'hospitalmap/hospital_map.dart';
 void main() async {
   await _initialize();
   await _permission();
+  _initMapLoading();// 앱 시작시 병원 정보 미리 불려옴
   runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => ScheduleListProvider(),)],child: MyApp()),);
 }
 
@@ -93,7 +95,7 @@ class MyHomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HospitalMap("내과")),
+                        MaterialPageRoute(builder: (context) => HospitalMap("내과",hospitalProvider)),
                       );
                     },
                     child: const MyContainer(
@@ -175,4 +177,10 @@ Future<void> _permission() async {
   }
   print("requestStatus ${requestStatus.name}");
   print("status ${status.name}");
+}
+
+
+HospitalProvider hospitalProvider = HospitalProvider();
+Future<void> _initMapLoading() async {
+  await hospitalProvider.getLoc();
 }
