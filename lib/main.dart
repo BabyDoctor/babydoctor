@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cpstn/diary/apiprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +16,15 @@ import 'FindSymptoms.dart';
 import 'hospitalmap/hospital_map.dart';
 
 void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await _initialize();
   await _permission();
-  _initMapLoading();// 앱 시작시 병원 정보 미리 불려옴
+  await _initMapLoading();// 앱 시작시 병원 정보 미리 불려옴
+  FlutterNativeSplash.remove();
   runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => ScheduleListProvider(),)],child: MyApp()),);
 }
+
 
 const seedColor = Color(0x7487E7E4);
 const outPadding = 32.0;

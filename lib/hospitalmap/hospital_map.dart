@@ -10,16 +10,52 @@ import 'hospital_provider.dart';
 import 'list_display.dart';
 
 class HospitalMap extends StatefulWidget {
-  const HospitalMap(this.whereToGo, this.hospitalProvider, {Key? key}) : super(key: key);
+  const HospitalMap(this.whereToGo, this.hospitalProvider, {Key? key})
+      : super(key: key);
 
   final String whereToGo;
   final HospitalProvider hospitalProvider;
 
   @override
-  _HospitalMapState createState() => _HospitalMapState();
+  State<HospitalMap> createState() => _HospitalMapState();
 }
 
 class _HospitalMapState extends State<HospitalMap> {
+  void _showBackDialog() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('나가기'),
+          content: const Text(
+            '이 페이지에서 나가겠습니까?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('예'),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('아니오'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +63,12 @@ class _HospitalMapState extends State<HospitalMap> {
 
     return PopScope(
       canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
+        _showBackDialog();
+      },
       child: FutureBuilder(
         future: _init(),
         builder: (context, snapshot) {
@@ -56,7 +98,7 @@ class _HospitalMapState extends State<HospitalMap> {
               const SizedBox(height: 20),
               CircularPercentIndicator(
                 animation: true,
-                animationDuration: 5000,
+                animationDuration: 3000,
                 restartAnimation: true,
                 percent: 1.0,
                 progressColor: Colors.greenAccent,
