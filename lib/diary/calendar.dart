@@ -210,56 +210,92 @@ class _CalendarState extends State<Calendar>
                                           ),
                                         ),
                                         content: Container(
-                                          height: MediaQuery.of(context).size.height * 0.5,width: MediaQuery.of(context).size.width * 0.7,
+                                          width: MediaQuery.of(context).size.width * 0.7,
                                           child: SingleChildScrollView(
                                             child: Column(
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    ListTile(
-                                                      leading: const Text(
-                                                        'Event :',
-                                                        style: TextStyle(fontSize: 20),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'Event :',
+                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                        ),
                                                       ),
-                                                      subtitle: Text(
-                                                        event.event,
-                                                        style: const TextStyle(fontSize: 20),
+                                                      Expanded(
+                                                        child: Text(
+                                                          '${event.event}',
+                                                          style: TextStyle(fontSize: 20),
+                                                          textAlign: TextAlign.right,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    ListTile(
-                                                      leading: const Text(
-                                                        'Temperature :',
-                                                        style: TextStyle(fontSize: 20),
-                                                      ),
-                                                      subtitle: Text(
-                                                        event.temp,
-                                                        style: const TextStyle(fontSize: 20),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    ListTile(
-                                                      leading: const Text(
-                                                        'YMDH :',
-                                                        style: TextStyle(fontSize: 20),
-                                                      ),
-                                                      subtitle: Text(
-                                                        '${event.year} . ${event.month} . ${event.day} . ${event.time ?? '00'}:00 ',
-                                                        style: const TextStyle(fontSize: 20),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                ListTile(
-                                                  leading: const Text(
-                                                    'Detail :',
-                                                    style: TextStyle(fontSize: 20),
+                                                    ],
                                                   ),
-                                                  subtitle: Text(
-                                                    event.detail ?? '',
-                                                    style: const TextStyle(fontSize: 20),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'Temperature :',
+                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          '${event.temp}',
+                                                          style: TextStyle(fontSize: 20),
+                                                          textAlign: TextAlign.right,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'YMDH :',
+                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          '${event.year} . ${event.month} . ${event.day} . ${event.time ?? '00'}:00 ',
+                                                          style: TextStyle(fontSize: 20),
+                                                          textAlign: TextAlign.right,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'Detail :',
+                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          '${event.detail ?? ''}',
+                                                          style: TextStyle(fontSize: 20),
+                                                          textAlign: TextAlign.right,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
@@ -277,7 +313,6 @@ class _CalendarState extends State<Calendar>
                                       ),
                                     ),
                                   );
-
 
                                 },
                               ),
