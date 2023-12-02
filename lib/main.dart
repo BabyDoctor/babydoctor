@@ -20,11 +20,16 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await _initialize();
   await _permission();
-  await _initMapLoading();// 앱 시작시 병원 정보 미리 불려옴
+  await _initMapLoading(); // 앱 시작시 병원 정보 미리 불려옴
   FlutterNativeSplash.remove();
-  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => ScheduleListProvider(),)],child: MyApp()),);
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (context) => ScheduleListProvider(),
+      )
+    ], child: MyApp()),
+  );
 }
-
 
 const seedColor = Color(0x7487E7E4);
 const outPadding = 32.0;
@@ -100,7 +105,9 @@ class MyHomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HospitalMap("내과",hospitalProvider)),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                HospitalMap("내과", hospitalProvider)),
                       );
                     },
                     child: const MyContainer(
@@ -183,7 +190,6 @@ Future<void> _permission() async {
   print("requestStatus ${requestStatus.name}");
   print("status ${status.name}");
 }
-
 
 HospitalProvider hospitalProvider = HospitalProvider();
 Future<void> _initMapLoading() async {
