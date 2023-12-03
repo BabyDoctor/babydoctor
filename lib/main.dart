@@ -54,96 +54,105 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(outPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.child_care_outlined,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    size: 50.0,
-                  ),
-                  Expanded(child: Container()),
-                ],
-              ),
-              const SizedBox(
-                height: outPadding,
-              ),
-              const Text(
-                '응닥 (응애 닥터)',
-              ),
-              const SizedBox(
-                height: outPadding,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => FindSymptoms()),
-                      );
-                    },
-                    child: const MyContainer(
-                      width: 270.0,
-                      height: 90.0,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(10.0),
-                      text: '증상 찾기',
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/main_background_image.png'),
+        )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(outPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.child_care_outlined,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      size: 50.0,
                     ),
-                  ),
-                  const SizedBox(
-                    height: outPadding,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                HospitalMap("내과", hospitalProvider)),
-                      );
-                    },
-                    child: const MyContainer(
-                      width: 270.0,
-                      height: 90.0,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(10.0),
-                      text: '병원 찾기',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: outPadding,
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Expanded(child: Container()),
+                  ],
+                ),
+                const SizedBox(
+                  height: outPadding,
+                ),
+                const Text(
+                  '응닥 (응애 닥터)',
+                ),
+                const SizedBox(
+                  height: outPadding,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Calendar()),
+                          MaterialPageRoute(builder: (context) => FindSymptoms()),
                         );
                       },
                       child: const MyContainer(
-                        width: 100.0,
-                        height: 100.0,
+                        width: 270.0,
+                        height: 90.0,
                         padding: EdgeInsets.all(8.0),
                         margin: EdgeInsets.all(10.0),
-                        text: '증상 기록',
+                        text: '증상 찾기',
                       ),
                     ),
                     const SizedBox(
-                      width: outPadding,
+                      height: outPadding,
                     ),
-                  ]),
-                ],
-              ),
-            ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HospitalMap("내과", hospitalProvider)),
+                        );
+                      },
+                      child: const MyContainer(
+                        width: 270.0,
+                        height: 90.0,
+                        padding: EdgeInsets.all(8.0),
+                        margin: EdgeInsets.all(10.0),
+                        text: '병원 찾기',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: outPadding,
+                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Calendar()),
+                          );
+                        },
+                        child: const MyContainer(
+                          width: 100.0,
+                          height: 100.0,
+                          padding: EdgeInsets.all(8.0),
+                          margin: EdgeInsets.all(10.0),
+                          text: '증상 기록',
+                        ),
+                      ),
+                      const SizedBox(
+                        width: outPadding,
+                      ),
+                    ]),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

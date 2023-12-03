@@ -5,9 +5,6 @@ import 'dart:io';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 
-//flutter build apk --debug --target-platform=android-arm64
-
-
 class CNN extends StatefulWidget {
   const CNN({super.key});
 
@@ -17,10 +14,12 @@ class CNN extends StatefulWidget {
 
 class _CNNState extends State<CNN> {
   var interpreter;
-  var output =  List<List<int>>.filled(1, List<int>.filled(3, 0)).reshape([1,3]);
+  var output =
+      List<List<int>>.filled(1, List<int>.filled(3, 0)).reshape([1, 3]);
   var _imagepath;
   File? _imagefile;
   Image? _image;
+  Image? _image_resize;
 
   @override
   void initState() {
@@ -44,7 +43,7 @@ class _CNNState extends State<CNN> {
     var input = Float32List.fromList(byteData.map((e) => e / 1.0).toList());
     //var input = Float32List.fromList(byteData.map((e) => e / 255.0).toList());
     //efficientnetB2의 입력은 260*260
-    var reshapedinput = input.reshape([1,260,260,3]);
+    var reshapedinput = input.reshape([1, 260, 260, 3]);
 
     // Shape the input tensor for TensorFlow Lite
     var inputTensor = interpreter.getInputTensor(0);
@@ -68,53 +67,96 @@ class _CNNState extends State<CNN> {
         _imagefile = File(xfile.path);
         _imagepath = xfile.path;
         _image = Image.file(File(xfile.path));
+        _image_resize = Image.file(File(xfile.path), fit: BoxFit.cover, height: 200, width: 200);
       });
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Example'),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          child: Column(
-            children: [
-              _imageLoadButtons(),
-              const SizedBox(height: 20),
-              Container(
-                width: 100,
-                height: 100,
-                child: _image == null
-                    ? const Text('이미지 없음')
-                    : _image as Image, //File Image를 삽입
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              _runModel(),
-              Center(
-                child: Container(
-                  width: 400,
-                  height: 300,
-                  child: Text('output: $output'),
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage('assets/main_background_image.png'),
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: const Text('피부이상 진단기'),
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            child: Column(
+              children: [
+                const SizedBox(height: 80),
+                _imageLoadButtons(),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _image == null
+                          ? const Text(
+                              '이미지를 추가해 주세요',
+                              style: TextStyle(fontSize: 18),
+                            )
+                          : _image_resize as Image,
+                    ],
+                  ), //File Image를 삽입
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                _runModel(),
+                Center(
+                  child: SizedBox(
+                    width: 400,
+                    height: 300,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _output(),
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
+  String _output() {
+    if (output ==
+        [
+          [0, 0, 0]
+        ]) {
+      return "결과창입니다";
+    } else {
+      if (output[0][0] > output[0][1] && output[0][0] > output[0][2]) {
+        return "피부분석결과 아토피일 확률이 ${(output[0][0] * 100).floorToDouble()}%입니다";
+      } else if (output[0][1] > output[0][0] && output[0][1] > output[0][2]) {
+        return "피부분석결과 습진일 확률이 ${(output[0][1] * 100).floorToDouble()}%입니다";
+      } else if (output[0][2] > output[0][1] && output[0][2] > output[0][0]) {
+        return "피부분석결과 정상일 확률이 ${(output[0][2] * 100).floorToDouble()}%입니다";
+      } else {
+        return "결과창입니다";
+      }
+    }
+  }
+
   Widget _runModel() {
     return ElevatedButton(
         onPressed: () => _processImageForML(_imagepath),
-        child: const Text('Run'));
+        child: const Text('피부 상태 진단하기'));
   }
 
   // 화면 상단 버튼
@@ -128,7 +170,7 @@ class _CNNState extends State<CNN> {
             SizedBox(
               child: ElevatedButton(
                 onPressed: () => getImage(),
-                child: const Text('Image'),
+                child: const Text('피부 이미지를 추가하기'),
               ),
             ),
           ],
