@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 
+import 'main.dart';
+
 class CNN extends StatefulWidget {
   const CNN({super.key});
 
@@ -15,7 +17,7 @@ class CNN extends StatefulWidget {
 class _CNNState extends State<CNN> {
   var interpreter;
   var output =
-      List<List<int>>.filled(1, List<int>.filled(3, 0)).reshape([1, 3]);
+  List<List<int>>.filled(1, List<int>.filled(3, 0)).reshape([1, 3]);
   var _imagepath;
   File? _imagefile;
   Image? _image;
@@ -67,7 +69,8 @@ class _CNNState extends State<CNN> {
         _imagefile = File(xfile.path);
         _imagepath = xfile.path;
         _image = Image.file(File(xfile.path));
-        _image_resize = Image.file(File(xfile.path), fit: BoxFit.cover, height: 200, width: 200);
+        _image_resize =
+            Image.file(File(xfile.path), fit: BoxFit.cover, height: 200, width: 200);
       });
     }
   }
@@ -76,46 +79,67 @@ class _CNNState extends State<CNN> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage('assets/onlybackcolor.png'),
-      )),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/onlybackcolor.png'),
+        ),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-
         body: SafeArea(
           child: Padding(
-
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(
-                    Icons.child_care,
-                    color:
-                    Theme.of(context).colorScheme.onPrimary,
-                    size: 60.0,
+                Padding(
+                  padding: const EdgeInsets.only(left: outPadding),
+                  child: Row(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(
+                            Icons.child_care,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            size: 60.0,
+                          ),
+                        ),
+
+                      ),
+                      const SizedBox(
+                        width: outPadding,
+                      ),
+                      const Text(
+                        '피부상태 진단하기',
+                        style: TextStyle(
+                            color:Color(0xFF455A64),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 27.0),
+                      ),
+                    ],
                   ),
                 ),
-
                 const SizedBox(height: 80),
                 _imageLoadButtons(),
                 const SizedBox(height: 20),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _image == null
-                          ? const Text(
-                              '이미지를 추가해 주세요',
-                              style: TextStyle(fontSize: 18),
-                            )
-                          : _image_resize as Image,
-                    ],
-                  ), //File Image를 삽입
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _image == null
+                            ? const Text(
+                          '이미지를 추가해 주세요',
+                          style: TextStyle(fontSize: 18),
+                        )
+                            : _image_resize as Image,
+                      ],
+                    ), //File Image를 삽입
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -145,10 +169,9 @@ class _CNNState extends State<CNN> {
   }
 
   String _output() {
-    if (output ==
-        [
-          [0, 0, 0]
-        ]) {
+    if (output == [
+      [0, 0, 0]
+    ]) {
       return "결과창입니다";
     } else {
       if (output[0][0] > output[0][1] && output[0][0] > output[0][2]) {
@@ -163,10 +186,19 @@ class _CNNState extends State<CNN> {
     }
   }
 
+  // Run Model button
   Widget _runModel() {
     return ElevatedButton(
-        onPressed: () => _processImageForML(_imagepath),
-        child: const Text('피부 상태 진단하기'));
+      onPressed: () => _processImageForML(_imagepath),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.blueGrey, // Change the button color here
+      ),
+
+      child: const Text(
+        '피부 상태 진단하기',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+      ),
+    );
   }
 
   // 화면 상단 버튼
@@ -179,9 +211,13 @@ class _CNNState extends State<CNN> {
           children: [
             SizedBox(
               child: ElevatedButton(
-                onPressed: () => getImage(),
-                child: const Text('피부 이미지를 추가하기'),
-              ),
+                  onPressed: () => getImage(),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blueGrey, // Change the button color here
+                  ),
+                  child: const Text('피부 이미지를 추가하기',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.0))),
             ),
           ],
         ),

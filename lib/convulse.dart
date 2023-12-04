@@ -29,7 +29,7 @@ class Convulse extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.child_care,
-                      color: Colors.lightBlueAccent,
+                      color: Colors.white,
                       size: 60.0,
                     ),
                   ),
@@ -37,7 +37,7 @@ class Convulse extends StatelessWidget {
                     width: outPadding,
                   ),
                   const Text(
-                    '경련',   style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 20.0),
+                    '경련',   style: TextStyle(color:Color(0xFF455A64),fontWeight: FontWeight.bold, fontSize: 27.0),
                   ),
                 ],
               ),
@@ -94,254 +94,471 @@ class _CheckBoxsState extends State<CheckBoxs> {
 
   List<String> checkList = [];
 
+
+
+  String _getDiagnosis() {
+    if (_hot && _eisik&&_singyong) {
+      return name11;//급성뇌염
+    }
+    if (_ten && _hot&&_sleep ) {
+      return name12;//열성경련
+    }
+    if (_banbok && _night&&_point ) {
+      return name13;//뇌전증
+    }
+    else {
+      return "경과관찰 요망";
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(
+                  "증상이 언제부터 나타났나요?",
+                  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _suddenly,
+                      onChanged: (value) {
+                        setState(() {
+                          _suddenly = value!;
+                        });
+                      },
+                    ),
+                    Text("~5시간",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _one,
+                      onChanged: (value) {
+                        setState(() {
+                          _one = value!;
+                        });
+                      },
+                    ),
+                    Text("5~10시간",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _three,
+                      onChanged: (value) {
+                        setState(() {
+                          _three = value!;
+                        });
+                      },
+                    ),
+                    Text("3일",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(
+                  "증상이 얼마나 지속되나요?",
+                  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _threee,
+                      onChanged: (value) {
+                        setState(() {
+                          _threee = value!;
+                        });
+                      },
+                    ),
+                    Text("몇초",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _fivee,
+                      onChanged: (value) {
+                        setState(() {
+                          _fivee = value!;
+                        });
+                      },
+                    ),
+                    Text("몇초~3분",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _ten,
+                      onChanged: (value) {
+                        setState(() {
+                          _ten = value!;
+                        });
+                      },
+                    ),
+                    Text('3~10분',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(
+                  "동반된 다른 증상이 있나요? (모두 체크해주세요.)",
+                  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _hot,
+                      onChanged: (value) {
+                        setState(() {
+                          _hot = value!;
+                        });
+                      },
+                    ),
+                    Text("발열",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _eisik,
+                      onChanged: (value) {
+                        setState(() {
+                          _eisik = value!;
+                        });
+                      },
+                    ),
+                    Text("의식저하",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _singyong,
+                      onChanged: (value) {
+                        setState(() {
+                          _singyong = value!;
+                        });
+                      },
+                    ),
+                    Text('신경학적 이상',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _head,
+                      onChanged: (value) {
+                        setState(() {
+                          _head = value!;
+                        });
+                      },
+                    ),
+                    Text("신경학적이상",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _none,
+                      onChanged: (value) {
+                        setState(() {
+                          _none = value!;
+                        });
+                      },
+                    ),
+                    Text('두통',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _nop,
+                      onChanged: (value) {
+                        setState(() {
+                          _nop = value!;
+                        });
+                      },
+                    ),
+                    Text('없음',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(
+                  "발작후 다른 변화가 있나요? (모두 체크해주세요.)",
+                  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _sleep,
+                      onChanged: (value) {
+                        setState(() {
+                          _sleep = value!;
+                        });
+                      },
+                    ),
+                    Text("졸린 증상",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _jangei,
+                      onChanged: (value) {
+                        setState(() {
+                          _jangei = value!;
+                        });
+                      },
+                    ),
+                    Text("구음장애",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _banbok,
+                      onChanged: (value) {
+                        setState(() {
+                          _banbok = value!;
+                        });
+                      },
+                    ),
+                    Text('반복적으로 발작',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _nono,
+                      onChanged: (value) {
+                        setState(() {
+                          _nono = value!;
+                        });
+                      },
+                    ),
+                    Text("없음",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Text(
+                  "경련에 특이사항 있나요? (모두 체크해주세요.)",
+                  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _night,
+                      onChanged: (value) {
+                        setState(() {
+                          _night = value!;
+                        });
+                      },
+                    ),
+                    Text("대개로 밤중에 일어남",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _day,
+                      onChanged: (value) {
+                        setState(() {
+                          _day = value!;
+                        });
+                      },
+                    ),
+                    Text("대개로 낮에 일어난다",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _point,
+                      onChanged: (value) {
+                        setState(() {
+                          _point = value!;
+                        });
+                      },
+                    ),
+                    Text('얼굴이나 신체 한쪽의 부분 발작',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _all,
+                      onChanged: (value) {
+                        setState(() {
+                          _all = value!;
+                        });
+                      },
+                    ),
+                    Text("전신발작",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      shape:RoundedRectangleBorder (
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      value: _no,
+                      onChanged: (value) {
+                        setState(() {
+                          _no = value!;
+                        });
+                      },
+                    ),
+                    Text("없음",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
+                  ],
+                ),
+              ),
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Text(
-              "증상이 언제부터 나타났나요?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _suddenly,
-                  onChanged: (value) {
-                    setState(() {
-                      _suddenly = value!;
-                    });
-                  },
-                ),
-                Text("~5시간")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _one,
-                  onChanged: (value) {
-                    setState(() {
-                      _one = value!;
-                    });
-                  },
-                ),
-                Text("5~10시간")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _three,
-                  onChanged: (value) {
-                    setState(() {
-                      _three = value!;
-                    });
-                  },
-                ),
-                Text("3일")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Text(
-              "증상이 얼마나 지속되나요?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _threee,
-                  onChanged: (value) {
-                    setState(() {
-                      _threee = value!;
-                    });
-                  },
-                ),
-                Text("몇초")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _fivee,
-                  onChanged: (value) {
-                    setState(() {
-                      _fivee = value!;
-                    });
-                  },
-                ),
-                Text("몇초~3분")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _ten,
-                  onChanged: (value) {
-                    setState(() {
-                      _ten = value!;
-                    });
-                  },
-                ),
-                Text('3~10분')
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Text(
-              "동반된 다른 증상이 있나요? (모두 체크해주세요.)",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _hot,
-                  onChanged: (value) {
-                    setState(() {
-                      _hot = value!;
-                    });
-                  },
-                ),
-                Text("발열")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _eisik,
-                  onChanged: (value) {
-                    setState(() {
-                      _eisik = value!;
-                    });
-                  },
-                ),
-                Text("의식저하")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _singyong,
-                  onChanged: (value) {
-                    setState(() {
-                      _singyong = value!;
-                    });
-                  },
-                ),
-                Text('신경학적 이상')
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _head,
-                  onChanged: (value) {
-                    setState(() {
-                      _head = value!;
-                    });
-                  },
-                ),
-                Text("신경학적이상")
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _none,
-                  onChanged: (value) {
-                    setState(() {
-                      _none = value!;
-                    });
-                  },
-                ),
-                Text('두통')
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  value: _nop,
-                  onChanged: (value) {
-                    setState(() {
-                      _nop = value!;
-                    });
-                  },
-                ),
-                Text('없음')
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Text(
-              "발작후 다른 변화가 있나요? (모두 체크해주세요.)",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              "발작후 다른 변화가 있나요? (color:Colors.black54,모두 체크해주세요.)",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -358,7 +575,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("졸린 증상")
+                Text("졸린 증상",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -376,7 +593,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("구음장애")
+                Text("구음장애",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -394,7 +611,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('반복적으로 발작')
+                Text('반복적으로 발작',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -412,7 +629,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("없음")
+                Text("없음",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -420,7 +637,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
             padding: const EdgeInsets.all(30.0),
             child: Text(
               "경련에 특이사항 있나요? (모두 체크해주세요.)",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -437,7 +654,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("대개로 밤중에 일어남")
+                Text("대개로 밤중에 일어남",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -455,7 +672,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("대개로 낮에 일어난다")
+                Text("대개로 낮에 일어난다",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -473,7 +690,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('얼굴이나 신체 한쪽의 부분 발작')
+                Text('얼굴이나 신체 한쪽의 부분 발작',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -491,7 +708,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("전신발작")
+                Text("전신발작",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -509,34 +726,37 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("없음")
+                Text("없음",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text("내 결과 확인"),
+              const Text("내 결과 확인",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 20.0),),
               IconButton(
                 onPressed: () {
+
+                  String diagnosisResult = _getDiagnosis();
+                  print("진단 결과: $diagnosisResult");
+
                   showDialog(
-                      context: context,
-                      barrierDismissible: true, // 바깥 영역 터치시 닫을지 여부
-                      builder: (BuildContext context) {
-                        return ResultPage(
-                          name: 'test',
-                        );
-                      });
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return ResultPage(name: diagnosisResult);
+                    },
+                  );
                 },
-                icon: Icon(Icons.sick_outlined),
+                icon: const Icon(Icons.sick_outlined),
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
-          )
-        ],
-      ),
+          ),
+        ]
+      )
     );
   }
 }

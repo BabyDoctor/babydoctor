@@ -38,7 +38,7 @@ class Colic extends StatelessWidget {
                                 width: outPadding,
                               ),
                               const Text(
-                                '복통', style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 20.0),
+                                '복통', style: TextStyle(color:Color(0xFF455A64),fontWeight: FontWeight.bold, fontSize: 27.0),
                               ),
                             ],
                           ),
@@ -98,6 +98,22 @@ class _CheckBoxsState extends State<CheckBoxs> {
   var name9 = "간염";
   var name10 = '담관낭종';
 
+  String _getDiagnosis() {
+    if (_uoek && _bloodung&&_temper&&_ko&&_banggu&&_redpoint) {
+      return name1;//창자벽 공기증
+    }
+    if (_byun && _uoek&&_banggu ) {
+      return name2;//결장증
+    }
+    if (_byun && _uoek&&_sossage&&_banggu ) {
+      return name3;//장중첩증
+    }
+    else {
+      return "경과관찰 요망";
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -108,7 +124,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
             padding: const EdgeInsets.all(30.0),
             child: Text(
               "증상이 가장 뚜력하게 반응하는 부위는?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -117,7 +133,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
               children: [
                 Checkbox(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
+                      borderRadius: BorderRadius.circular(20)),
                   value: _suddenly,
                   onChanged: (value) {
                     setState(() {
@@ -125,7 +141,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("명치")
+                Text("명치",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -135,7 +151,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
               children: [
                 Checkbox(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
+                      borderRadius: BorderRadius.circular(20)),
                   value: _one,
                   onChanged: (value) {
                     setState(() {
@@ -143,7 +159,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("아랫배")
+                Text("아랫배",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -161,7 +177,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("아랫배 왼쪽")
+                Text("아랫배 왼쪽",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -179,7 +195,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("아랫배 오른쪽")
+                Text("아랫배 오른쪽",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -197,7 +213,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("특정부위 없음")
+                Text("특정부위 없음",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -205,7 +221,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
             padding: const EdgeInsets.all(30.0),
             child: Text(
               "언제부터 아팠나요?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -222,7 +238,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("갑자기")
+                Text("갑자기",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -240,7 +256,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("~3일")
+                Text("~3일",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -258,7 +274,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('~5일')
+                Text('~5일',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -276,7 +292,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('일주일이상')
+                Text('일주일이상',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -284,7 +300,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
             padding: const EdgeInsets.all(30.0),
             child: Text(
               "얼마나 지속 되나요?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -301,7 +317,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("1~2분")
+                Text("1~2분",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -319,7 +335,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("~3분")
+                Text("~3분",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -337,7 +353,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('5분~')
+                Text('5분~',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -345,7 +361,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
             padding: const EdgeInsets.all(30.0),
             child: Text(
               "동반된 다른 증상이 있나요?(모두 선택해주세요.)",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -362,7 +378,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("변비")
+                Text("변비",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -380,7 +396,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("구토")
+                Text("구토",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -398,7 +414,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('설사')
+                Text('설사',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -416,7 +432,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('발열')
+                Text('발열',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -434,7 +450,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('가는 변')
+                Text('가는 변',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -452,7 +468,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('혈변')
+                Text('혈변',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -470,7 +486,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('체온 불안정')
+                Text('체온 불안정',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -478,7 +494,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
             padding: const EdgeInsets.all(30.0),
             child: Text(
               "신체에 다른 변화가 있나요?(모두 선택해주세요.)",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
             ),
           ),
           Padding(
@@ -495,7 +511,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("꼬르륵 소리가 들린다")
+                Text("꼬르륵 소리가 들린다",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -513,7 +529,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text("우/상복부에 소시지 모양의 덩어리가 만져진다.")
+                Text("우/상복부에 소시지모양의 덩어리가 만져짐",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -531,7 +547,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('삭욕부진 및 활동량 감소')
+                Text('삭욕부진 및 활동량 감소',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -549,7 +565,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('복부팽만 및 방구배출 없음')
+                Text('복부팽만 및 방구배출 없음',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -567,7 +583,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('기면')
+                Text('기면',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -585,7 +601,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('복부에 붉은 반점이 있다.')
+                Text('복부에 붉은 반점이 있다.',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
@@ -603,34 +619,39 @@ class _CheckBoxsState extends State<CheckBoxs> {
                     });
                   },
                 ),
-                Text('특별한거 없음')
+                Text('특별한거 없음',style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 17.0),)
               ],
             ),
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text("내 결과 확인"),
+              const Text("내 결과 확인",style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 20.0),),
               IconButton(
                 onPressed: () {
+
+                  String diagnosisResult = _getDiagnosis();
+                  print("진단 결과: $diagnosisResult");
+
                   showDialog(
-                      context: context,
-                      barrierDismissible: true, // 바깥 영역 터치시 닫을지 여부
-                      builder: (BuildContext context) {
-                        return ResultPage(
-                          name: 'test',
-                        );
-                      });
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return ResultPage(name: diagnosisResult);
+                    },
+                  );
                 },
-                icon: Icon(Icons.sick_outlined),
+                icon: const Icon(Icons.sick_outlined),
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
-          )
-        ],
-      ),
+          ),
+        ]
+      )
     );
   }
 }
+

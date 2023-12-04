@@ -21,6 +21,14 @@ class FindSymptoms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
+        child: Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage('assets/onlybackcolor.png'),
+    fit: BoxFit.cover,
+    ),
+    ),
+
 
           child: Padding(
               padding: const EdgeInsets.all(outPadding),
@@ -33,16 +41,17 @@ class FindSymptoms extends StatelessWidget {
                   },
                     icon: Icon(
                       Icons.child_care,
-                      color: Colors.lightBlueAccent,
+                      color: Colors.white,
                       size: 60.0,
                     ),
                   ),
                   const Text(
-                    '증상을 골라주세요',
+                    '증상을      골라주세요',style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 25.0),
                   ),
                   const SizedBox(
                     height: outPadding,
                   ),
+
 
                   GestureDetector(
                     onTap: () {
@@ -177,11 +186,15 @@ class FindSymptoms extends StatelessWidget {
                       height: 50.0,
                       padding: EdgeInsets.all(8.0),
                       margin: EdgeInsets.all(10.0),
-                      text: '피부이상',
+
+                        text: '   피부'
+                            '             이상'
                     ),
                   ),
                 ],
               )),
-        ));
+        )
+        )
+    );
   }
 }
