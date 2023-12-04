@@ -56,11 +56,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/main_background_image.png'),
-        )
-      ),
+          image: DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage('assets/main_background_image.png'),
+      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -95,7 +94,8 @@ class MyHomePage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FindSymptoms()),
+                          MaterialPageRoute(
+                              builder: (context) => FindSymptoms()),
                         );
                       },
                       child: const MyContainer(

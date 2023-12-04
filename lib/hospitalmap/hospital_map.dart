@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import 'hospital_provider.dart';
 import 'list_display.dart';
 
@@ -50,7 +48,6 @@ class _HospitalMapState extends State<HospitalMap> {
                 Navigator.pop(context);
               },
             ),
-
           ],
         );
       },
@@ -61,15 +58,14 @@ class _HospitalMapState extends State<HospitalMap> {
   Widget build(BuildContext context) {
     final Completer<NaverMapController> mapControllerCompleter = Completer();
 
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (bool didPop) {
-        if (didPop) {
-          return;
-        }
+    return WillPopScope(
+      onWillPop: () async {
         _showBackDialog();
+        return false;
       },
       child: FutureBuilder(
+        // ... rest of the code ...
+
         future: _init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

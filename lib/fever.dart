@@ -8,7 +8,14 @@ class Fever extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+        body: SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/onlybackcolor.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(outPadding),
           child: Column(
@@ -16,28 +23,27 @@ class Fever extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.of(context).pop();
-                  },
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     icon: Icon(
                       Icons.child_care,
                       color: Theme.of(context).colorScheme.onPrimary,
-                      size: 40.0,
+                      size: 60.0,
                     ),
                   ),
                   const SizedBox(
                     width: outPadding,
                   ),
                   const Text(
-                    '발열',
+                    '발열', style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
                 ],
               ),
-
               const SizedBox(
                 height: outPadding,
               ),
-
               const Expanded(
                 child: Center(
                   child: CheckBoxs(),
@@ -47,11 +53,9 @@ class Fever extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }
-
-
 
 var name14 = "소아 특발성 관절염";
 var name15 = '수막염';
@@ -60,15 +64,11 @@ var name16 = '폐렴';
 class CheckBoxs extends StatefulWidget {
   const CheckBoxs({Key? key}) : super(key: key);
 
-
   @override
   _CheckBoxsState createState() => _CheckBoxsState();
 }
 
-
 class _CheckBoxsState extends State<CheckBoxs> {
-
-
   bool _suddenly = false;
   bool _one = false;
   bool _three = false;
@@ -94,8 +94,6 @@ class _CheckBoxsState extends State<CheckBoxs> {
 
   List<String> checkList = [];
 
-
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -114,9 +112,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _suddenly,
                   onChanged: (value) {
                     setState(() {
@@ -133,9 +130,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _one,
                   onChanged: (value) {
                     setState(() {
@@ -152,9 +148,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _three,
                   onChanged: (value) {
                     setState(() {
@@ -171,9 +166,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _ten,
                   onChanged: (value) {
                     setState(() {
@@ -197,9 +191,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _threee,
                   onChanged: (value) {
                     setState(() {
@@ -216,9 +209,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _five,
                   onChanged: (value) {
                     setState(() {
@@ -235,9 +227,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _fivee,
                   onChanged: (value) {
                     setState(() {
@@ -249,7 +240,6 @@ class _CheckBoxsState extends State<CheckBoxs> {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Text(
@@ -262,9 +252,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _hot,
                   onChanged: (value) {
                     setState(() {
@@ -281,9 +270,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _eisik,
                   onChanged: (value) {
                     setState(() {
@@ -300,9 +288,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _singyong,
                   onChanged: (value) {
                     setState(() {
@@ -319,9 +306,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _head,
                   onChanged: (value) {
                     setState(() {
@@ -338,9 +324,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _nop,
                   onChanged: (value) {
                     setState(() {
@@ -352,7 +337,6 @@ class _CheckBoxsState extends State<CheckBoxs> {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Text(
@@ -365,9 +349,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _sleep,
                   onChanged: (value) {
                     setState(() {
@@ -384,9 +367,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _jangei,
                   onChanged: (value) {
                     setState(() {
@@ -403,9 +385,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _banbok,
                   onChanged: (value) {
                     setState(() {
@@ -422,9 +403,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _nono,
                   onChanged: (value) {
                     setState(() {
@@ -436,7 +416,6 @@ class _CheckBoxsState extends State<CheckBoxs> {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Text(
@@ -449,9 +428,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _night,
                   onChanged: (value) {
                     setState(() {
@@ -468,9 +446,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _day,
                   onChanged: (value) {
                     setState(() {
@@ -487,9 +464,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _point,
                   onChanged: (value) {
                     setState(() {
@@ -506,9 +482,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _all,
                   onChanged: (value) {
                     setState(() {
@@ -525,9 +500,8 @@ class _CheckBoxsState extends State<CheckBoxs> {
             child: Row(
               children: [
                 Checkbox(
-                  shape:RoundedRectangleBorder (
-                      borderRadius: BorderRadius.circular(18)
-                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                   value: _no,
                   onChanged: (value) {
                     setState(() {
@@ -539,7 +513,6 @@ class _CheckBoxsState extends State<CheckBoxs> {
               ],
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -550,9 +523,10 @@ class _CheckBoxsState extends State<CheckBoxs> {
                       context: context,
                       barrierDismissible: true, // 바깥 영역 터치시 닫을지 여부
                       builder: (BuildContext context) {
-                        return ResultPage(name: 'test',);
-                      }
-                  );
+                        return ResultPage(
+                          name: 'test',
+                        );
+                      });
                 },
                 icon: Icon(Icons.sick_outlined),
               )
@@ -564,6 +538,5 @@ class _CheckBoxsState extends State<CheckBoxs> {
         ],
       ),
     );
-
   }
 }

@@ -78,19 +78,29 @@ class _CNNState extends State<CNN> {
       decoration: const BoxDecoration(
           image: DecorationImage(
         fit: BoxFit.cover,
-        image: AssetImage('assets/main_background_image.png'),
+        image: AssetImage('assets/onlybackcolor.png'),
       )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text('피부이상 진단기'),
-        ),
+
         body: SafeArea(
           child: Padding(
+
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Column(
               children: [
+                 IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.child_care,
+                    color:
+                    Theme.of(context).colorScheme.onPrimary,
+                    size: 60.0,
+                  ),
+                ),
+
                 const SizedBox(height: 80),
                 _imageLoadButtons(),
                 const SizedBox(height: 20),

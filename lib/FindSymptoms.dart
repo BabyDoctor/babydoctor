@@ -21,16 +21,21 @@ class FindSymptoms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
+
           child: Padding(
               padding: const EdgeInsets.all(outPadding),
               child: GridView.count(
                 crossAxisCount: 3,
 
                 children: [
-                  Icon(
-                    Icons.child_care,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    size: 50.0,
+                  IconButton(onPressed: (){
+                    Navigator.of(context).pop();
+                  },
+                    icon: Icon(
+                      Icons.child_care,
+                      color: Colors.lightBlueAccent,
+                      size: 60.0,
+                    ),
                   ),
                   const Text(
                     '증상을 골라주세요',
