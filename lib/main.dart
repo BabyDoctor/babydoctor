@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorSchemeSeed: seedColor,
         brightness: Brightness.light,
+        fontFamily: 'Pretendard',
       ),
       home: MyHomePage(),
     );
