@@ -86,6 +86,8 @@ class _HospitalMapState extends State<HospitalMap> {
   Widget _buildLoadingScreen() {
     return MaterialApp(
       theme: ThemeData(
+        colorSchemeSeed: const Color(0x7487E7E4),
+        brightness: Brightness.light,
         fontFamily: 'Pretendard',
       ),
       home: Scaffold(
@@ -120,6 +122,8 @@ class _HospitalMapState extends State<HospitalMap> {
       Completer<NaverMapController> mapControllerCompleter) {
     return MaterialApp(
       theme: ThemeData(
+        colorSchemeSeed: const Color(0x7487E7E4),
+        brightness: Brightness.light,
         fontFamily: 'Pretendard',
       ),
       home: Scaffold(
@@ -142,7 +146,7 @@ class _HospitalMapState extends State<HospitalMap> {
                     widget.hospitalProvider.lat,
                     widget.hospitalProvider.long,
                   ),
-                  zoom: 12,
+                  zoom: 15,
                 ),
                 mapType: NMapType.basic,
                 extent: const NLatLngBounds(
@@ -150,7 +154,7 @@ class _HospitalMapState extends State<HospitalMap> {
                   northEast: NLatLng(44.35, 132.0),
                 ),
                 indoorEnable: true,
-                locationButtonEnable: true,
+                locationButtonEnable: false,
                 consumeSymbolTapEvents: false,
               ),
               onMapReady: (controller) async {
