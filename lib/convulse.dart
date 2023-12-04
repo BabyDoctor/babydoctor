@@ -371,8 +371,7 @@ class _CheckBoxsState extends State<CheckBoxs> {
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Text(
-                  "발작후 다른 변화가 있나요? (모두 체크해주세요.)",
-                  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
+                  "발작후 다른 변화가 있나요? (모두 체크해주세요.)",  style: TextStyle(color:Colors.black54,fontWeight: FontWeight.bold, fontSize: 21.0),
                 ),
               ),
               Padding(

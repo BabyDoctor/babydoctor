@@ -100,7 +100,7 @@ class MyHomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HospitalMap("내과", hospitalProvider)),
+                            builder: (context) => FindHospital()),
                       );
                     },
                     child: const MyContainer(

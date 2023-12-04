@@ -188,18 +188,20 @@ class _CNNState extends State<CNN> {
 
   // Run Model button
   Widget _runModel() {
-    return ElevatedButton(
-      onPressed: () => _processImageForML(_imagepath),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.blueGrey, // Change the button color here
-      ),
-
-      child: const Text(
-        '피부 상태 진단하기',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+    return Center(
+      child: ElevatedButton(
+        onPressed: () => _processImageForML(_imagepath),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.blueGrey, // Change the button color here
+        ),
+        child: const Text(
+          '피부 상태 진단하기',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+        ),
       ),
     );
   }
+
 
   // 화면 상단 버튼
   Widget _imageLoadButtons() {
