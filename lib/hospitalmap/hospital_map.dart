@@ -50,7 +50,6 @@ class _HospitalMapState extends State<HospitalMap> {
                 Navigator.pop(context);
               },
             ),
-
           ],
         );
       },
@@ -86,6 +85,9 @@ class _HospitalMapState extends State<HospitalMap> {
 
   Widget _buildLoadingScreen() {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Pretendard',
+      ),
       home: Scaffold(
         body: Center(
           child: Column(
@@ -117,9 +119,16 @@ class _HospitalMapState extends State<HospitalMap> {
   Widget _buildMainScreen(
       Completer<NaverMapController> mapControllerCompleter) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Pretendard',
+      ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('병원찾기'),
+          title: const Text(
+            '병원찾기',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          backgroundColor: Colors.transparent,
         ),
         body: SlidingUpPanel(
           panel: ListDisplay(

@@ -85,7 +85,10 @@ class ListDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("병원 리스트"),
+        title: const Text(
+          "병원 리스트",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
       ),
       body: _makeListView(hospitalCodeList),
     );
