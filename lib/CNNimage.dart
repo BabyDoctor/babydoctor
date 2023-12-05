@@ -69,8 +69,8 @@ class _CNNState extends State<CNN> {
         _imagefile = File(xfile.path);
         _imagepath = xfile.path;
         _image = Image.file(File(xfile.path));
-        _image_resize =
-            Image.file(File(xfile.path), fit: BoxFit.cover, height: 200, width: 200);
+        _image_resize = Image.file(File(xfile.path),
+            fit: BoxFit.cover, height: 200, width: 200);
       });
     }
   }
@@ -108,7 +108,6 @@ class _CNNState extends State<CNN> {
                             size: 60.0,
                           ),
                         ),
-
                       ),
                       const SizedBox(
                         width: outPadding,
@@ -116,7 +115,7 @@ class _CNNState extends State<CNN> {
                       const Text(
                         '피부상태 진단하기',
                         style: TextStyle(
-                            color:Color(0xFF455A64),
+                            color: Color(0xFF455A64),
                             fontWeight: FontWeight.bold,
                             fontSize: 27.0),
                       ),
@@ -169,9 +168,10 @@ class _CNNState extends State<CNN> {
   }
 
   String _output() {
-    if (output == [
-      [0, 0, 0]
-    ]) {
+    if (output ==
+        [
+          [0, 0, 0]
+        ]) {
       return "결과창입니다";
     } else {
       if (output[0][0] > output[0][1] && output[0][0] > output[0][2]) {
@@ -201,7 +201,6 @@ class _CNNState extends State<CNN> {
       ),
     );
   }
-
 
   // 화면 상단 버튼
   Widget _imageLoadButtons() {
