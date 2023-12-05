@@ -39,13 +39,13 @@ class _CNNState extends State<CNN> {
 
     // 이미지 로드
     var image = img.decodeImage(File(imagePath).readAsBytesSync());
-    var resizedImage = img.copyResize(image!, width: 260, height: 260);
+    var resizedImage = img.copyResize(image!, width: 224, height: 224);
     var byteData = resizedImage.getBytes();
     //efficientnetB2의 입력은 0~255
     var input = Float32List.fromList(byteData.map((e) => e / 1.0).toList());
     //var input = Float32List.fromList(byteData.map((e) => e / 255.0).toList());
     //efficientnetB2의 입력은 260*260
-    var reshapedinput = input.reshape([1, 260, 260, 3]);
+    var reshapedinput = input.reshape([1, 224, 224, 3]);
 
     // Shape the input tensor for TensorFlow Lite
     var inputTensor = interpreter.getInputTensor(0);

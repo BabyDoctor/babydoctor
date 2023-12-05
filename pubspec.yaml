@@ -75,6 +75,7 @@ flutter:
 
     - assets/onlybackcolor.png
     - assets/main_background_image.png
+    - assets/
 
     - assets/fonts/
   # To add assets to your application, add an assets section, like this:
