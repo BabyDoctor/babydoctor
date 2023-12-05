@@ -13,7 +13,7 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   String? detail;
-  String baseUrl = 'http://10.0.2.2:8000/disease';
+  String baseUrl = 'http://15.165.100.55:8000/disease';
   @override
   void initState() {
     super.initState();
@@ -44,31 +44,55 @@ class _ResultPageState extends State<ResultPage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      title: Text('Your Result is'),
-      content: Container(
-        width: MediaQuery.of(context).size.width * 0.9, // width를 조절
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListTile(
-                title: Text('Detail : ', style: TextStyle(fontSize: 16)),
-                subtitle: Container(
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(detail ?? 'Loading...'),
+      title: Text('진단 결과는 ...', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+      content:Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Center(child: Text('${widget.name}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+                  subtitle: Row(mainAxisAlignment: MainAxisAlignment.end,children: [Text('이 의심됩니다.', style: TextStyle(color: Colors.red))]),
                 ),
-              ),
-
-            ],
+                Divider(),
+                ExpansionTile(
+                  title: Text('자세한 설명 보기', style: TextStyle(fontSize: 16, color: Colors.blue)),
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Text(detail ?? 'Loading...', style: TextStyle(fontSize: 14)),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(),
+                ListTile(
+                  title: Center(child: Text('관련된 병원 찾기', style: TextStyle(fontSize: 16, color: Colors.blue))),
+                  onTap: () {
+                    // 병원 찾기 기능을 실행하는 코드를 여기에 작성하세요.
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
+
       actions: <Widget>[
         TextButton(
-          child: Text('Close'),
+          child: Text('Close', style: TextStyle(color: Colors.blue)),
           onPressed: () {
             Navigator.of(context).pop();
           },

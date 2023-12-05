@@ -202,7 +202,7 @@ class _CalendarState extends State<Calendar>
                                           borderRadius: BorderRadius.circular(20),
                                         ),
                                         title: const Text(
-                                          'About this event',
+                                          '증상에 대해 기록하기',
                                           style: TextStyle(
                                             color: Colors.cyan,
                                             fontWeight: FontWeight.bold,
@@ -221,7 +221,7 @@ class _CalendarState extends State<Calendar>
                                                     children: [
                                                       Expanded(
                                                         child: Text(
-                                                          'Event :',
+                                                          '증상 :',
                                                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                                         ),
                                                       ),
@@ -242,7 +242,7 @@ class _CalendarState extends State<Calendar>
                                                     children: [
                                                       Expanded(
                                                         child: Text(
-                                                          'Temperature :',
+                                                          '온도 :',
                                                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                                         ),
                                                       ),
@@ -263,7 +263,7 @@ class _CalendarState extends State<Calendar>
                                                     children: [
                                                       Expanded(
                                                         child: Text(
-                                                          'YMDH :',
+                                                          '년월일시 :',
                                                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                                         ),
                                                       ),
@@ -284,7 +284,7 @@ class _CalendarState extends State<Calendar>
                                                     children: [
                                                       Expanded(
                                                         child: Text(
-                                                          'Detail :',
+                                                          '특이사항 :',
                                                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                                         ),
                                                       ),
@@ -328,7 +328,7 @@ class _CalendarState extends State<Calendar>
       floatingActionButton:
           SpeedDial(animatedIcon: AnimatedIcons.menu_close, children: [
         SpeedDialChild(
-          label: 'Add',
+          label: '추가',
           child: const Icon(Icons.add),
           onTap: () async {
             TextEditingController eventController = TextEditingController();
@@ -359,7 +359,7 @@ class _CalendarState extends State<Calendar>
                               child: TextField(
                                 controller: eventController,
                                 decoration: const InputDecoration(
-                                  labelText: 'Enter event',
+                                  labelText: '증상',
                                   border: OutlineInputBorder(),
                                 ),
                               ),
@@ -368,7 +368,7 @@ class _CalendarState extends State<Calendar>
                               child: TextField(
                                 controller: tempController,
                                 decoration: const InputDecoration(
-                                  labelText: 'Temperature(ex. 36.5)',
+                                  labelText: '온도(예. 36.5)',
                                   border: OutlineInputBorder(),
                                 ),
                               ),
@@ -418,12 +418,12 @@ class _CalendarState extends State<Calendar>
                         TextField(
                           controller: detailController,
                           decoration: const InputDecoration(
-                            labelText: 'Other details',
+                            labelText: '특이사항',
                             border: OutlineInputBorder(),
                           ),
                         ),
                         ElevatedButton(
-                          child: const Text('Add'),
+                          child: const Text('추가하기'),
                           onPressed: () async {
                             Schedule schedule = Schedule(
                               event: eventController.text,
@@ -451,7 +451,7 @@ class _CalendarState extends State<Calendar>
         ),
         SpeedDialChild(
           child: const Icon(Icons.search),
-          label: 'Search',
+          label: '검색',
           onTap: () async {
             showModalBottomSheet(
               context: context,
@@ -459,7 +459,7 @@ class _CalendarState extends State<Calendar>
               builder: (BuildContext context) {
                 return CupertinoPageScaffold(
                   navigationBar: const CupertinoNavigationBar(
-                    middle: Text('Search'), // NavigationBar의 제목을 'Search'로 설정
+                    middle: Text('키워드로 검색'), // NavigationBar의 제목을 'Search'로 설정
                   ),
                   child: Column(
                     children: [
@@ -479,7 +479,7 @@ class _CalendarState extends State<Calendar>
                           ),
                           Expanded(
                             child: CupertinoTextField(
-                              placeholder: 'Enter search text',
+                              placeholder: '검색할 단어를 입력하세요',
                               controller: _searchController,
                             ),
                           ),
@@ -543,14 +543,14 @@ class _CalendarState extends State<Calendar>
         ),
         SpeedDialChild(
           child: const Icon(Icons.refresh),
-          label: 'Refresh',
+          label: '새로고침',
           onTap: () async {
             update();
           },
         ),
         SpeedDialChild(
           child: const Icon(Icons.exit_to_app),
-          label: 'Back',
+          label: '뒤로 가기',
           onTap: () {
             Navigator.pop(context);
           },
