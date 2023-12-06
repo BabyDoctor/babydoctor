@@ -37,8 +37,8 @@ class HospitalGetInfo {
     String baseUrl =
         "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?WGS84_LON=$long&WGS84_LAT=$lat&page_No=1&numOfRows=$num&serviceKey=$apiKey";
     //테스트용 출력
-    print(lat);
-    print(long);
+    //print(lat);
+    //print(long);
     //요청 보내기
     try {
       final response = await http.get(
@@ -46,7 +46,7 @@ class HospitalGetInfo {
         // Timeout 설정(30초)
         headers: {'Content-Type': 'application/json'},
       ).timeout(const Duration(seconds: httpRequestTimeout));
-      print("get1");
+      //print("get1");
 
       // 정상적으로 데이터를 불러왔다면
       if (response.statusCode == 200) {
@@ -72,7 +72,7 @@ class HospitalGetInfo {
         throw Exception('불러오기 실패!!!: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error during HTTP request: $error');
+      //print('Error during HTTP request: $error');
     }
     return null;
   }
@@ -162,12 +162,12 @@ class HospitalGetInfo2 {
               }
             }
           }
-          print("done $processedRequests");
+          //print("done $processedRequests");
         } else {
           throw Exception('불러오기 실패!!!: ${response.statusCode}');
         }
       } catch (error) {
-        print('Error during HTTP request: $error');
+        //print('Error during HTTP request: $error');
       }
 
       // 보내는 속도 설정

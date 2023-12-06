@@ -35,8 +35,10 @@ class _HospitalMapState extends State<HospitalMap> {
               ),
               child: const Text('예'),
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
+                //Navigator.pop(context);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                //Navigator.pop(context);
               },
             ),
             TextButton(
@@ -58,14 +60,15 @@ class _HospitalMapState extends State<HospitalMap> {
   Widget build(BuildContext context) {
     final Completer<NaverMapController> mapControllerCompleter = Completer();
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (bool pop) {
+        if(pop){
+          return;
+        }
         _showBackDialog();
-        return false;
       },
       child: FutureBuilder(
-        // ... rest of the code ...
-
         future: _init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -81,35 +84,28 @@ class _HospitalMapState extends State<HospitalMap> {
   }
 
   Widget _buildLoadingScreen() {
-    return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0x7487E7E4),
-        brightness: Brightness.light,
-        fontFamily: 'Pretendard',
-      ),
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "가까운 병원들을 찾고 있어요",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              ),
-              const SizedBox(height: 20),
-              CircularPercentIndicator(
-                animation: true,
-                animationDuration: 3000,
-                restartAnimation: true,
-                percent: 1.0,
-                progressColor: Colors.greenAccent,
-                radius: 45.0,
-                lineWidth: 12.0,
-              ),
-              const SizedBox(height: 20),
-              const Text(""),
-            ],
-          ),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "가까운 병원들을 찾고 있어요",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+            const SizedBox(height: 20),
+            CircularPercentIndicator(
+              animation: true,
+              animationDuration: 10000,
+              restartAnimation: true,
+              percent: 1.0,
+              progressColor: Colors.greenAccent,
+              radius: 45.0,
+              lineWidth: 12.0,
+            ),
+            const SizedBox(height: 20),
+            const Text(""),
+          ],
         ),
       ),
     );
@@ -117,58 +113,51 @@ class _HospitalMapState extends State<HospitalMap> {
 
   Widget _buildMainScreen(
       Completer<NaverMapController> mapControllerCompleter) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0x7487E7E4),
-        brightness: Brightness.light,
-        fontFamily: 'Pretendard',
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            '병원찾기',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          backgroundColor: Colors.transparent,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          '병원찾기',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
-        body: SlidingUpPanel(
-          panel: ListDisplay(
-              widget.hospitalProvider.getHospitalCodeList(widget.whereToGo)),
-          body: Padding(
-            padding: const EdgeInsets.only(bottom: 180.0),
-            child: NaverMap(
-              options: NaverMapViewOptions(
-                initialCameraPosition: NCameraPosition(
-                  target: NLatLng(
-                    widget.hospitalProvider.lat,
-                    widget.hospitalProvider.long,
-                  ),
-                  zoom: 15,
+        backgroundColor: Colors.transparent,
+      ),
+      body: SlidingUpPanel(
+        panel: ListDisplay(
+            widget.hospitalProvider.getHospitalCodeList(widget.whereToGo)),
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 180.0),
+          child: NaverMap(
+            options: NaverMapViewOptions(
+              initialCameraPosition: NCameraPosition(
+                target: NLatLng(
+                  widget.hospitalProvider.lat,
+                  widget.hospitalProvider.long,
                 ),
-                mapType: NMapType.basic,
-                extent: const NLatLngBounds(
-                  southWest: NLatLng(31.43, 122.37),
-                  northEast: NLatLng(44.35, 132.0),
-                ),
-                indoorEnable: true,
-                locationButtonEnable: false,
-                consumeSymbolTapEvents: false,
+                zoom: 15,
               ),
-              onMapReady: (controller) async {
-                controller.getLocationTrackingMode();
-                controller.getLocationOverlay();
-
-                _addCurrentLocationMarker(controller);
-
-                if (widget.hospitalProvider.markers.isNotEmpty) {
-                  controller.addOverlayAll(widget.hospitalProvider.markers);
-                }
-
-                mapControllerCompleter.complete(controller);
-                log("onMapReady", name: "onMapReady");
-              },
-              onCameraIdle: () {},
+              mapType: NMapType.basic,
+              extent: const NLatLngBounds(
+                southWest: NLatLng(31.43, 122.37),
+                northEast: NLatLng(44.35, 132.0),
+              ),
+              indoorEnable: true,
+              locationButtonEnable: false,
+              consumeSymbolTapEvents: false,
             ),
+            onMapReady: (controller) async {
+              controller.getLocationTrackingMode();
+              controller.getLocationOverlay();
+
+              _addCurrentLocationMarker(controller);
+
+              if (widget.hospitalProvider.markers.isNotEmpty) {
+                controller.addOverlayAll(widget.hospitalProvider.markers);
+              }
+
+              mapControllerCompleter.complete(controller);
+              log("onMapReady", name: "onMapReady");
+            },
+            onCameraIdle: () {},
           ),
         ),
       ),

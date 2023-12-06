@@ -13,7 +13,6 @@ import 'hospitalmap/hospital_provider.dart';
 import 'my_container.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'FindSymptoms.dart';
-import 'hospitalmap/hospital_map.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => ScheduleListProvider(),
       )
-    ], child: MyApp()),
+    ], child: const MyApp()),
   );
 }
 
@@ -40,6 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: seedColor,
         brightness: Brightness.light,
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
   }
 }
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage('assets/main_background_image.png'),
@@ -66,7 +66,7 @@ class MyHomePage extends StatelessWidget {
           ),
           child: Center(
             child: Padding(
-              padding: EdgeInsets.all(outPadding),
+              padding: const EdgeInsets.all(outPadding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -158,30 +158,30 @@ Future<void> _permission() async {
   if (requestStatus.isGranted && status.isLimited) {
     // isLimited - 제한적 동의 (iOS 14 < )
     // 요청 동의됨
-    print("isGranted");
+    //print("isGranted");
 
     if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
       // 요청 동의 + GPS 켜짐
       var position = await Geolocator.getCurrentPosition();
-      print("serviceStatusIsEnabled position = ${position.toString()}");
+      //print("serviceStatusIsEnabled position = ${position.toString()}");
     } else {
       // 요청 동의 + GPS 꺼짐
-      print("serviceStatusIsDisabled");
+      //print("serviceStatusIsDisabled");
     }
   } else if (requestStatus.isPermanentlyDenied || status.isPermanentlyDenied) {
     // 권한 요청 거부, 해당 권한에 대한 요청에 대해 다시 묻지 않음 선택하여 설정화면에서 변경해야함. Android
-    print("isPermanentlyDenied");
+    //print("isPermanentlyDenied");
     openAppSettings();
   } else if (status.isRestricted) {
     // 권한 요청 거부, 해당 권한에 대한 요청을 표시하지 않도록 선택하여 설정화면에서 변경해야함. iOS
-    print("isRestricted");
+    //print("isRestricted");
     openAppSettings();
   } else if (status.isDenied) {
     // 권한 요청 거절
-    print("isDenied");
+    //print("isDenied");
   }
-  print("requestStatus ${requestStatus.name}");
-  print("status ${status.name}");
+  //print("requestStatus ${requestStatus.name}");
+  //print("status ${status.name}");
 }
 
 HospitalProvider hospitalProvider = HospitalProvider();

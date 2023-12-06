@@ -89,6 +89,7 @@ class ListDisplay extends StatelessWidget {
           "병원 리스트",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: _makeListView(hospitalCodeList),
     );

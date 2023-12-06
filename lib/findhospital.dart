@@ -11,32 +11,25 @@ class FindHospital extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: seedColor,
-        brightness: Brightness.light,
-        fontFamily: 'Pretendard',
-      ),
-      home: MyHomePage(),
-    );
+    return const MyHomePage();
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key});
+  const MyHomePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/onlybackcolor.png'),
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/onlybackcolor.png'),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Column(
