@@ -63,7 +63,7 @@ class _HospitalMapState extends State<HospitalMap> {
     return PopScope(
       canPop: true,
       onPopInvoked: (bool pop) {
-        if(pop){
+        if (pop) {
           return;
         }
         _showBackDialog();
@@ -119,7 +119,10 @@ class _HospitalMapState extends State<HospitalMap> {
           '병원찾기',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        leading: const BackButton(
+          color: Colors.black,
+        ),
       ),
       body: SlidingUpPanel(
         panel: ListDisplay(

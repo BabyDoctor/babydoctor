@@ -15,9 +15,9 @@ class _SkinState extends State<Skin> {
     return Scaffold(
         body: SafeArea(
             child: Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/onlybackcolor.png'),
+          image: const AssetImage('assets/onlybackcolor.png'),
           fit: BoxFit.cover,
         ),
       ),

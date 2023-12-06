@@ -10,7 +10,7 @@ class DailyCheck extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        appBar: AppBar(title: Text('데일리 체크'),),
+        appBar: AppBar(title: const Text('데일리 체크'),),
         body:const Padding(
           padding: EdgeInsets.all(16.0),
           child: Center(

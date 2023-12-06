@@ -43,19 +43,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorSchemeSeed: seedColor,
         brightness: Brightness.light,
+        //scaffoldBackgroundColor:Colors.transparent,
         fontFamily: 'Pretendard',
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -80,8 +81,7 @@ class MyHomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => FindSymptoms()),
+                        MaterialPageRoute(builder: (context) => const FindSymptoms()),
                       );
                     },
                     child: const MyContainer(
@@ -99,8 +99,7 @@ class MyHomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => FindHospital()),
+                        MaterialPageRoute(builder: (context) => const FindHospital()),
                       );
                     },
                     child: const MyContainer(
@@ -118,8 +117,7 @@ class MyHomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Calendar()),
+                        MaterialPageRoute(builder: (context) => const Calendar()),
                       );
                     },
                     child: const MyContainer(
@@ -142,7 +140,6 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
 
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();

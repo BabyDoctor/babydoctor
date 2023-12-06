@@ -55,7 +55,7 @@ class MyContainer extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Pretendard',
             fontSize: 20.0,
             fontWeight: FontWeight.w600, // Replace the period with a comma

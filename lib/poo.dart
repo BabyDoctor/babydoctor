@@ -11,7 +11,7 @@ class Poo extends StatelessWidget {
         body: SafeArea(
       child: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage('assets/onlybackcolor.png'),
             fit: BoxFit.cover,
           ),

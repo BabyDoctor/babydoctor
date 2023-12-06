@@ -22,8 +22,8 @@ class FindSymptoms extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
             child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
+              decoration: const BoxDecoration(
+                image: const DecorationImage(
                   image: AssetImage('assets/onlybackcolor.png'),
                   fit: BoxFit.cover,
                 ),
@@ -39,7 +39,7 @@ class FindSymptoms extends StatelessWidget {
                       IconButton(onPressed: (){
                         Navigator.of(context).pop();
                       },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.child_care,
                           color: Colors.white,
                           size: 60.0,

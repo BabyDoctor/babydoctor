@@ -17,7 +17,7 @@ class CNN extends StatefulWidget {
 class _CNNState extends State<CNN> {
   var interpreter;
   var output =
-  List<List<int>>.filled(1, List<int>.filled(3, 0)).reshape([1, 3]);
+      List<List<int>>.filled(1, List<int>.filled(3, 0)).reshape([1, 3]);
   var _imagepath;
   File? _imagefile;
   Image? _image;
@@ -132,9 +132,9 @@ class _CNNState extends State<CNN> {
                       children: [
                         _image == null
                             ? const Text(
-                          '이미지를 추가해 주세요',
-                          style: TextStyle(fontSize: 18),
-                        )
+                                '이미지를 추가해 주세요',
+                                style: TextStyle(fontSize: 18),
+                              )
                             : _image_resize as Image,
                       ],
                     ), //File Image를 삽입
@@ -192,7 +192,7 @@ class _CNNState extends State<CNN> {
       child: ElevatedButton(
         onPressed: () => _processImageForML(_imagepath),
         style: ElevatedButton.styleFrom(
-          primary: Colors.blueGrey, // Change the button color here
+          backgroundColor: Colors.blueGrey, // Change the button color here
         ),
         child: const Text(
           '피부 상태 진단하기',
@@ -214,7 +214,8 @@ class _CNNState extends State<CNN> {
               child: ElevatedButton(
                   onPressed: () => getImage(),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blueGrey, // Change the button color here
+                    backgroundColor:
+                        Colors.blueGrey, // Change the button color here
                   ),
                   child: const Text('피부 이미지를 추가하기',
                       style: TextStyle(
