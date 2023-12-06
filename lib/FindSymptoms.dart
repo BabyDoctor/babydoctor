@@ -17,183 +17,214 @@ class FindSymptoms extends StatelessWidget {
   const FindSymptoms({super.key});
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
             child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/onlybackcolor.png'),
-                  fit: BoxFit.cover,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/onlybackcolor.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 10, 20, 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.child_care),
+                  iconSize: 60,
                 ),
+                const Expanded(
+                  child: Text(
+                    '증상을 골라주세요',
+                    style: TextStyle(
+                      color: Color(0xFF455A64),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26.0,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(width: 50),  // IconButton의 iconSize와 동일한 너비의 공간을 만듭니다.
+              ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color(0xFF455A64),
+                width: 3.0,
               ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    child: const MainContainer(content: '복통'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Colic()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '경련'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Convulse()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '설사'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Poo()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '기침'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const KolLock()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '황달'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const YellowMoon()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '혈변'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const BloodPoo()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '발열'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Fever()),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  GestureDetector(
+                    child: const MainContainer(content: '변비'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PooPoo()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+    )));
+  }
+}
 
+class MainContainer extends StatelessWidget {
+  final String content;
+  final IconData? iconData; // 아이콘 데이터가 없을 수도 있으므로 Nullable로 변경
+  const MainContainer({Key? key, required this.content, this.iconData})
+      : super(key: key);
 
-              child: Padding(
-                  padding: const EdgeInsets.all(outPadding),
-                  child: GridView.count(
-                    crossAxisCount: 3,
-
-                    children: [
-                      IconButton(onPressed: (){
-                        Navigator.of(context).pop();
-                      },
-                        icon: Icon(
-                          Icons.child_care,
-                          color: Colors.white,
-                          size: 60.0,
-                        ),
-                      ),
-                      const Text(
-                        '증상을     골라주세요', style: TextStyle(color:Color(0xFF455A64),fontWeight: FontWeight.bold, fontSize: 26.0),
-                      ),
-                      const SizedBox(
-                        height: outPadding,
-                      ),
-
-
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Colic()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '복통',
-                        ),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Convulse()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '경련',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Poo()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '설사',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const KolLock()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '기침',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const YellowMoon()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '황달',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const BloodPoo()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '혈변',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Fever()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '발열',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const PooPoo()),
-                          );
-                        },
-                        child: const MyContainer(
-                          width: 50.0,
-                          height: 50.0,
-                          padding: EdgeInsets.all(8.0),
-                          margin: EdgeInsets.all(10.0),
-                          text: '변비',
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const CNN()),
-                          );
-                        },
-                        child: const MyContainer(
-                            width: 50.0,
-                            height: 50.0,
-                            padding: EdgeInsets.all(8.0),
-                            margin: EdgeInsets.all(10.0),
-
-                            text:'피부'
-                        ),
-                      ),
-                    ],
-                  )),
-            )
-        )
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            offset: const Offset(5, 5),
+            color: Colors.black.withOpacity(0.3),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                if (iconData != null) // 아이콘이 있을 경우에만 아이콘을 렌더링
+                  Icon(iconData, color: Colors.black),
+                if (iconData != null) // 아이콘이 있을 경우에만 간격을 추가
+                  const SizedBox(width: 10),
+                Text(
+                  content,
+                  style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.black,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

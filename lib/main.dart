@@ -5,9 +5,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'dailycheck.dart';
+import 'CNNimage.dart';
 import 'diary/calendar.dart';
-import 'feedingroom.dart';
 import 'findhospital.dart';
 import 'hospitalmap/hospital_provider.dart';
 import 'my_container.dart';
@@ -27,7 +26,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => ScheduleListProvider(),
       )
-    ], child: MyApp()),
+    ], child: const MyApp()),
   );
 }
 
@@ -49,6 +48,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage('assets/main_background_image.png'),
@@ -66,77 +66,150 @@ class MyHomePage extends StatelessWidget {
           ),
           child: Center(
             child: Padding(
-              padding: EdgeInsets.all(outPadding),
+              padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Text(
-                    '',
+                  const SizedBox(height: 30),
+                  const Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '응애 닥터',
+                            style: TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                          top: -15,
+                          right: 60,
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.red,
+                            size: 60,
+                          ))
+                    ],
                   ),
-                  const SizedBox(
-                    height: outPadding,
+                  const SizedBox(height: 20),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 7,
+                          child: GestureDetector(
+                            child: const MainContainer(content: '증상 찾기',iconData: Icons.search,),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const FindSymptoms()),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10), // 이 부분은 두 버튼 사이의 공간을 제공합니다. 필요에 따라 조정하세요.
+                        Expanded(
+                          flex: 3,
+                          child: GestureDetector(
+                            child: const MainContainer(content: '',iconData: Icons.camera_alt,),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const CNN()),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  const SizedBox(height: 20),
                   GestureDetector(
+                    child: const MainContainer(content: '병원 찾기',iconData: Icons.local_hospital,),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FindSymptoms()),
+                            builder: (context) => const FindHospital()),
                       );
                     },
-                    child: const MyContainer(
-                      width: 200.0,
-                      height: 90.0,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(10.0),
-                      text: '증상 찾기',
-                    ),
                   ),
-                  const SizedBox(
-                    height: outPadding,
-                  ),
+                  const SizedBox(height: 20),
                   GestureDetector(
+                    child: const MainContainer(content: '증상 일기',iconData: Icons.edit_calendar_outlined,),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FindHospital()),
+                            builder: (context) => const Calendar()),
                       );
                     },
-                    child: const MyContainer(
-                      width: 200.0,
-                      height: 90.0,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(10.0),
-                      text: '병원 찾기',
-                    ),
                   ),
-                  const SizedBox(
-                    height: outPadding,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Calendar()),
-                      );
-                    },
-                    child: const MyContainer(
-                      width: 200.0,
-                      height: 90.0,
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.all(10.0),
-                      text: '증상기록',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: outPadding,
-                  ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MainContainer extends StatelessWidget {
+  final String content;
+  final IconData? iconData; // 아이콘 데이터가 없을 수도 있으므로 Nullable로 변경
+  const MainContainer({Key? key, required this.content, this.iconData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            offset: const Offset(5, 5),
+            color: Colors.black.withOpacity(0.3),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                if (iconData != null) // 아이콘이 있을 경우에만 아이콘을 렌더링
+                  Icon(iconData, color: Colors.black),
+                if (iconData != null) // 아이콘이 있을 경우에만 간격을 추가
+                  const SizedBox(width: 10),
+                Text(
+                  content,
+                  style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.black,
+            ),
+          ],
         ),
       ),
     );

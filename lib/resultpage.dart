@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'findhospital.dart';
+
 class ResultPage extends StatefulWidget {
   final String name;
 
@@ -44,7 +46,7 @@ class _ResultPageState extends State<ResultPage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      title: Text('진단 결과는 ...', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+      title: const Text('진단 결과는 ...', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
       content:Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
@@ -58,30 +60,35 @@ class _ResultPageState extends State<ResultPage> {
             child: Column(
               children: <Widget>[
                 ListTile(
-                  title: Center(child: Text('${widget.name}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-                  subtitle: Row(mainAxisAlignment: MainAxisAlignment.end,children: [Text('이 의심됩니다.', style: TextStyle(color: Colors.red))]),
+                  title: Center(child: Text('${widget.name}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+                  subtitle: const Row(mainAxisAlignment: MainAxisAlignment.end,children: [Text('이 의심됩니다.', style: TextStyle(color: Colors.red))]),
                 ),
-                Divider(),
+                const Divider(),
                 ExpansionTile(
-                  title: Text('자세한 설명 보기', style: TextStyle(fontSize: 16, color: Colors.blue)),
+                  title: const Text('자세한 설명 보기', style: TextStyle(fontSize: 16, color: Colors.blue)),
                   children: <Widget>[
                     SingleChildScrollView(
                       child: Container(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Text(detail ?? 'Loading...', style: TextStyle(fontSize: 14)),
+                        child: Text(detail ?? 'Loading...', style: const TextStyle(fontSize: 14)),
                       ),
                     ),
                   ],
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  title: Center(child: Text('관련된 병원 찾기', style: TextStyle(fontSize: 16, color: Colors.blue))),
+                  title: const Center(child: Text('관련된 병원 찾기', style: TextStyle(fontSize: 16, color: Colors.blue))),
                   onTap: () {
-                    // 병원 찾기 기능을 실행하는 코드를 여기에 작성하세요.
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FindHospital()),
+                    );
                   },
                 ),
               ],
@@ -92,9 +99,9 @@ class _ResultPageState extends State<ResultPage> {
 
       actions: <Widget>[
         TextButton(
-          child: Text('Close', style: TextStyle(color: Colors.blue)),
+          child: const Text('Close', style: TextStyle(color: Colors.blue)),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
           },
         ),
       ],

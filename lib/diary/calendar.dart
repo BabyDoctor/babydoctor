@@ -110,6 +110,41 @@ class _CalendarState extends State<Calendar>
                             shape: BoxShape.circle, color: Colors.blueAccent),
                         //주말 관련
                         weekendTextStyle: TextStyle(color: Colors.red)),
+                    eventLoader: (day) {
+                      var provider = context.read<ScheduleListProvider>();
+                      return provider.scheduleListByDate
+                          .where((event) =>
+                      (event.year == day.year.toString()) &&
+                          (event.month == day.month.toString()) &&
+                          (event.day == day.day.toString()))
+                          .toList();
+                    },
+                    calendarBuilders: CalendarBuilders(
+                      markerBuilder: (context, date, events) {
+                        if (events.isNotEmpty) {
+                          return Stack(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                width: 17,
+                                height: 17,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.orangeAccent,
+                                ),
+                                child: Text(
+                                  '${events.length}',
+                                  style: const TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return null;
+                      },
+                    ),
                     onPageChanged: (pageDate) {
                       setState(() {
                         focusedDay = pageDate;
@@ -155,169 +190,157 @@ class _CalendarState extends State<Calendar>
                           (event.month ==
                               selectedDayWithoutTime.month.toString()) &&
                           (event.day == selectedDayWithoutTime.day.toString()))
-                      .map((event) => Dismissible(
-                            key: Key(event.scheduleId.toString()),
-                            onDismissed: (direction) {
-                              if (event.scheduleId != null) {
-                                context
-                                    .read<ScheduleListProvider>()
-                                    .deleteScheduleList(event.scheduleId!);
-                              } else {
-                                print('Error: scheduleId is null');
-                              }
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      .map((event) => Container(
+                        margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          leading: Container(width: 30,height: 50,
                               decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: ListTile(
-                                leading: Container(width: 30,height: 50,
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        right: BorderSide(
-                                          width: 2.0,
-                                          color: getRandomColor(),
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text('${event.time ?? '하루종일'}')),
-                                title: Text(
-                                  '${event.event}  ${event.temp}°C',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                border: Border(
+                                  right: BorderSide(
+                                    width: 2.0,
+                                    color: getRandomColor(),
                                   ),
                                 ),
-                                subtitle: Text(
-                                  event.detail ?? '',
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => SingleChildScrollView(
-                                      child: AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        title: const Text(
-                                          '증상에 대해 기록하기',
-                                          style: TextStyle(
-                                            color: Colors.cyan,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 24,
-                                          ),
-                                        ),
-                                        content: Container(
-                                          width: MediaQuery.of(context).size.width * 0.7,
-                                          child: SingleChildScrollView(
-                                            child: Column(
+                              ),
+                              child: Text('${event.time ?? '하루종일'}')),
+                          title: Text(
+                            '${event.event}  ${event.temp}°C',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          subtitle: Text(
+                            event.detail ?? '',
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => SingleChildScrollView(
+                                child: AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  title: const Text(
+                                    '증상에 대해 기록하기',
+                                    style: TextStyle(
+                                      color: Colors.cyan,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  content: Container(
+                                    width: MediaQuery.of(context).size.width * 0.7,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          '증상 :',
-                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          '${event.event}',
-                                                          style: TextStyle(fontSize: 20),
-                                                          textAlign: TextAlign.right,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                Expanded(
+                                                  child: Text(
+                                                    '증상 :',
+                                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          '온도 :',
-                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          '${event.temp}',
-                                                          style: TextStyle(fontSize: 20),
-                                                          textAlign: TextAlign.right,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          '년월일시 :',
-                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          '${event.year} . ${event.month} . ${event.day} . ${event.time ?? '00'}:00 ',
-                                                          style: TextStyle(fontSize: 20),
-                                                          textAlign: TextAlign.right,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          '특이사항 :',
-                                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          '${event.detail ?? ''}',
-                                                          style: TextStyle(fontSize: 20),
-                                                          textAlign: TextAlign.right,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                Expanded(
+                                                  child: Text(
+                                                    '${event.event}',
+                                                    style: TextStyle(fontSize: 20),
+                                                    textAlign: TextAlign.right,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Close'),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    '온도 :',
+                                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${event.temp}',
+                                                    style: TextStyle(fontSize: 20),
+                                                    textAlign: TextAlign.right,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    '년월일시 :',
+                                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${event.year} . ${event.month} . ${event.day} . ${event.time ?? '00'}:00 ',
+                                                    style: TextStyle(fontSize: 20),
+                                                    textAlign: TextAlign.right,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    '특이사항 :',
+                                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${event.detail ?? ''}',
+                                                    style: TextStyle(fontSize: 20),
+                                                    textAlign: TextAlign.right,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  );
-
-                                },
+                                  ),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ))
+                            );
+
+                          },
+                        ),
+                      ))
                       .toList(),
                 ),
               )

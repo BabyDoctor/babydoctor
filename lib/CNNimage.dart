@@ -93,36 +93,33 @@ class _CNNState extends State<CNN> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: outPadding),
+                  padding: const EdgeInsets.fromLTRB(40, 10, 20, 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          icon: Icon(
-                            Icons.child_care,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            size: 60.0,
-                          ),
-                        ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: const Icon(Icons.child_care),
+                        iconSize: 60,
                       ),
-                      const SizedBox(
-                        width: outPadding,
-                      ),
-                      const Text(
-                        '피부상태 진단하기',
-                        style: TextStyle(
+                      const Expanded(
+                        child: Text(
+                          '피부 상태 진단하기',
+                          style: TextStyle(
                             color: Color(0xFF455A64),
                             fontWeight: FontWeight.bold,
-                            fontSize: 27.0),
+                            fontSize: 26.0,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
+                      const SizedBox(width: 50),  // IconButton의 iconSize와 동일한 너비의 공간을 만듭니다.
                     ],
                   ),
                 ),
-                const SizedBox(height: 80),
+                const SizedBox(height: 10),
                 _imageLoadButtons(),
                 const SizedBox(height: 20),
                 Expanded(
