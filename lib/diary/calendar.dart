@@ -65,113 +65,122 @@ class _CalendarState extends State<Calendar>
               const SizedBox(
                 height: 10,
               ),
-              Stack(
-                children: [
-                  TableCalendar(
-                    firstDay: DateTime.utc(2020, 3, 6),
-                    lastDay: DateTime.utc(2030, 3, 6),
-                    focusedDay: focusedDay,
-                    selectedDayPredicate: (day) {
-                      return isSameDay(selectedDay, day);
-                    },
-                    onFormatChanged: (format) {
-                      if (selectedDay != null) {
-                        setState(() {});
-                      }
-                    },
-                    availableCalendarFormats: const {
-                      CalendarFormat.month: 'Today',
-                      CalendarFormat.twoWeeks: 'Today',
-                      CalendarFormat.week: 'Today',
-                    },
-                    headerStyle: const HeaderStyle(
-                      formatButtonVisible: true,
-                      titleTextStyle: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color(0xFF455A64), // 테두리 색상
+                    width: 4.0, // 테두리 두께
+                  ),
+                  borderRadius: BorderRadius.circular(10.0), // 둥근 정도
+                ),
+                child: Stack(
+                  children: [
+                    TableCalendar(
+                      firstDay: DateTime.utc(2020, 3, 6),
+                      lastDay: DateTime.utc(2030, 3, 6),
+                      focusedDay: focusedDay,
+                      selectedDayPredicate: (day) {
+                        return isSameDay(selectedDay, day);
+                      },
+                      onFormatChanged: (format) {
+                        if (selectedDay != null) {
+                          setState(() {});
+                        }
+                      },
+                      availableCalendarFormats: const {
+                        CalendarFormat.month: 'Today',
+                        CalendarFormat.twoWeeks: 'Today',
+                        CalendarFormat.week: 'Today',
+                      },
+                      headerStyle: const HeaderStyle(
+                        formatButtonVisible: true,
+                        titleTextStyle: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    calendarStyle: const CalendarStyle(
-                        //marker 관련
-                        canMarkersOverflow: false,
-                        markersAutoAligned: true,
-                        markerSize: 10,
-                        markerDecoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        //today 관련
-                        isTodayHighlighted: true,
-                        todayDecoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.lightBlueAccent,
-                        ),
-                        //selectedDay 관련
-                        selectedDecoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blueAccent),
-                        //주말 관련
-                        weekendTextStyle: TextStyle(color: Colors.red)),
-                    eventLoader: (day) {
-                      var provider = context.read<ScheduleListProvider>();
-                      return provider.scheduleListByDate
-                          .where((event) =>
-                      (event.year == day.year.toString()) &&
-                          (event.month == day.month.toString()) &&
-                          (event.day == day.day.toString()))
-                          .toList();
-                    },
-                    calendarBuilders: CalendarBuilders(
-                      markerBuilder: (context, date, events) {
-                        if (events.isNotEmpty) {
-                          return Stack(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                width: 17,
-                                height: 17,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.orangeAccent,
-                                ),
-                                child: Text(
-                                  '${events.length}',
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
+                      calendarStyle: const CalendarStyle(
+                          //marker 관련
+                          canMarkersOverflow: false,
+                          markersAutoAligned: true,
+                          markerSize: 10,
+                          markerDecoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          //today 관련
+                          isTodayHighlighted: true,
+                          todayDecoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.lightBlueAccent,
+                          ),
+                          //selectedDay 관련
+                          selectedDecoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.blueAccent),
+                          //주말 관련
+                          weekendTextStyle: TextStyle(color: Colors.red)),
+                      eventLoader: (day) {
+                        var provider = context.read<ScheduleListProvider>();
+                        return provider.scheduleListByDate
+                            .where((event) =>
+                        (event.year == day.year.toString()) &&
+                            (event.month == day.month.toString()) &&
+                            (event.day == day.day.toString()))
+                            .toList();
+                      },
+                      calendarBuilders: CalendarBuilders(
+                        markerBuilder: (context, date, events) {
+                          if (events.isNotEmpty) {
+                            return Stack(
+                              children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  width: 17,
+                                  height: 17,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.orangeAccent,
+                                  ),
+                                  child: Text(
+                                    '${events.length}',
+                                    style: const TextStyle(
+                                      fontSize: 12.0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          );
-                        }
-                        return null;
+                              ],
+                            );
+                          }
+                          return null;
+                        },
+                      ),
+                      onPageChanged: (pageDate) {
+                        setState(() {
+                          focusedDay = pageDate;
+                        });
+                      },
+                      onDaySelected: (selectedDays, _) {
+                        setState(() {
+                          selectedDay = selectedDays;
+                          focusedDay = selectedDays;
+                        });
+                        //sendDate(selectedDays);
+                        //print('User selected day $selectedDays');
                       },
                     ),
-                    onPageChanged: (pageDate) {
-                      setState(() {
-                        focusedDay = pageDate;
-                      });
-                    },
-                    onDaySelected: (selectedDays, _) {
-                      setState(() {
-                        selectedDay = selectedDays;
-                        focusedDay = selectedDays;
-                      });
-                      //sendDate(selectedDays);
-                      //print('User selected day $selectedDays');
-                    },
-                  ),
-                  Positioned(
-                      top: 9,
-                      right: 62,
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            focusedDay = DateTime.now();
-                            selectedDay = DateTime.now();
-                          });
-                        },
-                        child: const Text('  '),
-                      ))
-                ],
+                    Positioned(
+                        top: 9,
+                        right: 62,
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              focusedDay = DateTime.now();
+                              selectedDay = DateTime.now();
+                            });
+                          },
+                          child: const Text('  '),
+                        ))
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
               Text(
@@ -243,7 +252,7 @@ class _CalendarState extends State<Calendar>
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Expanded(
+                                                const Expanded(
                                                   child: Text(
                                                     '증상 :',
                                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -252,7 +261,7 @@ class _CalendarState extends State<Calendar>
                                                 Expanded(
                                                   child: Text(
                                                     '${event.event}',
-                                                    style: TextStyle(fontSize: 20),
+                                                    style: const TextStyle(fontSize: 20),
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
@@ -264,7 +273,7 @@ class _CalendarState extends State<Calendar>
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Expanded(
+                                                const Expanded(
                                                   child: Text(
                                                     '온도 :',
                                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -273,7 +282,7 @@ class _CalendarState extends State<Calendar>
                                                 Expanded(
                                                   child: Text(
                                                     '${event.temp}',
-                                                    style: TextStyle(fontSize: 20),
+                                                    style: const TextStyle(fontSize: 20),
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
@@ -285,7 +294,7 @@ class _CalendarState extends State<Calendar>
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Expanded(
+                                                const Expanded(
                                                   child: Text(
                                                     '년월일시 :',
                                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -294,7 +303,7 @@ class _CalendarState extends State<Calendar>
                                                 Expanded(
                                                   child: Text(
                                                     '${event.year} . ${event.month} . ${event.day} . ${event.time ?? '00'}:00 ',
-                                                    style: TextStyle(fontSize: 20),
+                                                    style: const TextStyle(fontSize: 20),
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
@@ -306,7 +315,7 @@ class _CalendarState extends State<Calendar>
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Expanded(
+                                                const Expanded(
                                                   child: Text(
                                                     '특이사항 :',
                                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -315,7 +324,7 @@ class _CalendarState extends State<Calendar>
                                                 Expanded(
                                                   child: Text(
                                                     '${event.detail ?? ''}',
-                                                    style: TextStyle(fontSize: 20),
+                                                    style: const TextStyle(fontSize: 20),
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
