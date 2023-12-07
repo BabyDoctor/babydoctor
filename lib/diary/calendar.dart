@@ -485,12 +485,13 @@ class _CalendarState extends State<Calendar>
           child: const Icon(Icons.search),
           label: '검색',
           onTap: () async {
+            FocusNode _focusNode = FocusNode();
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
               builder: (BuildContext context) {
                 return CupertinoPageScaffold(
-                  navigationBar: const CupertinoNavigationBar(
+                navigationBar: const CupertinoNavigationBar(
                     middle: Text('키워드로 검색'), // NavigationBar의 제목을 'Search'로 설정
                   ),
                   child: Column(
@@ -513,13 +514,14 @@ class _CalendarState extends State<Calendar>
                             child: CupertinoTextField(
                               placeholder: '검색할 단어를 입력하세요',
                               controller: _searchController,
+                              focusNode: _focusNode,
                             ),
                           ),
                           CupertinoButton(
                             padding: EdgeInsets.zero,
                             child: const Icon(Icons.send),
                             onPressed: () {
-                              // 'send' 아이콘을 눌렀을 때의 동작을 여기에 작성
+                              _focusNode.unfocus();
                             },
                           ),
                         ],
@@ -530,7 +532,7 @@ class _CalendarState extends State<Calendar>
                               .watch<ScheduleListProvider>()
                               .scheduleListByDate
                               .where((event) =>
-                                  event.event.contains(_searchController.text))
+                                  event.event.contains(_searchController.text) || event.detail!.contains(_searchController.text))
                               .map(
                                 (event) => Container(
                                   margin:
@@ -539,14 +541,14 @@ class _CalendarState extends State<Calendar>
                                       border: Border.all(),
                                       borderRadius: BorderRadius.circular(20)),
                                   child: ListTile(
-                                      leading: Text(event.time ?? '하루종일'),
+                                      leading: Text('${event.year}.${event.month}.${event.day}'),
                                       title: Text(
                                         event.event,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      subtitle: Text(event.event),
+                                      subtitle: Text(event.detail ?? ''),
                                       onTap: () {
                                         setState(() {
                                           _searchController.clear();

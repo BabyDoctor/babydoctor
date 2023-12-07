@@ -34,5 +34,5 @@ class Schedule {
         day = json['day'],
         time = json['time'],
         scheduleId = json['id'],
-        detail = json['detail'];
+        detail = json['detail'] ?? '';
 }
