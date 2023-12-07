@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: seedColor,
         brightness: Brightness.light,
@@ -55,7 +56,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      //backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -103,7 +104,10 @@ class MyHomePage extends StatelessWidget {
                         Expanded(
                           flex: 7,
                           child: GestureDetector(
-                            child: const MainContainer(content: '증상 찾기',iconData: Icons.search,),
+                            child: const MainContainer(
+                              content: '증상 찾기',
+                              iconData: Icons.search,
+                            ),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -113,15 +117,21 @@ class MyHomePage extends StatelessWidget {
                             },
                           ),
                         ),
-                        const SizedBox(width: 10), // 이 부분은 두 버튼 사이의 공간을 제공합니다. 필요에 따라 조정하세요.
+                        const SizedBox(
+                            width:
+                                10), // 이 부분은 두 버튼 사이의 공간을 제공합니다. 필요에 따라 조정하세요.
                         Expanded(
                           flex: 3,
                           child: GestureDetector(
-                            child: const MainContainer(content: '',iconData: Icons.camera_alt,),
+                            child: const MainContainer(
+                              content: '',
+                              iconData: Icons.camera_alt,
+                            ),
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const CNN()),
+                                MaterialPageRoute(
+                                    builder: (context) => const CNN()),
                               );
                             },
                           ),
@@ -131,7 +141,10 @@ class MyHomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
-                    child: const MainContainer(content: '병원 찾기',iconData: Icons.local_hospital,),
+                    child: const MainContainer(
+                      content: '병원 찾기',
+                      iconData: Icons.local_hospital,
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -142,7 +155,10 @@ class MyHomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
-                    child: const MainContainer(content: '증상 일기',iconData: Icons.edit_calendar_outlined,),
+                    child: const MainContainer(
+                      content: '증상 일기',
+                      iconData: Icons.edit_calendar_outlined,
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -165,7 +181,8 @@ class MyHomePage extends StatelessWidget {
 class MainContainer extends StatelessWidget {
   final String content;
   final IconData? iconData; // 아이콘 데이터가 없을 수도 있으므로 Nullable로 변경
-  const MainContainer({Key? key, required this.content, this.iconData}) : super(key: key);
+  const MainContainer({Key? key, required this.content, this.iconData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +233,6 @@ class MainContainer extends StatelessWidget {
   }
 }
 
-
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NaverMapSdk.instance.initialize(
@@ -231,30 +247,30 @@ Future<void> _permission() async {
   if (requestStatus.isGranted && status.isLimited) {
     // isLimited - 제한적 동의 (iOS 14 < )
     // 요청 동의됨
-    print("isGranted");
+    //print("isGranted");
 
     if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
       // 요청 동의 + GPS 켜짐
       var position = await Geolocator.getCurrentPosition();
-      print("serviceStatusIsEnabled position = ${position.toString()}");
+      //print("serviceStatusIsEnabled position = ${position.toString()}");
     } else {
       // 요청 동의 + GPS 꺼짐
-      print("serviceStatusIsDisabled");
+      //print("serviceStatusIsDisabled");
     }
   } else if (requestStatus.isPermanentlyDenied || status.isPermanentlyDenied) {
     // 권한 요청 거부, 해당 권한에 대한 요청에 대해 다시 묻지 않음 선택하여 설정화면에서 변경해야함. Android
-    print("isPermanentlyDenied");
+    //print("isPermanentlyDenied");
     openAppSettings();
   } else if (status.isRestricted) {
     // 권한 요청 거부, 해당 권한에 대한 요청을 표시하지 않도록 선택하여 설정화면에서 변경해야함. iOS
-    print("isRestricted");
+    //print("isRestricted");
     openAppSettings();
   } else if (status.isDenied) {
     // 권한 요청 거절
-    print("isDenied");
+    //print("isDenied");
   }
-  print("requestStatus ${requestStatus.name}");
-  print("status ${status.name}");
+  //print("requestStatus ${requestStatus.name}");
+  //print("status ${status.name}");
 }
 
 HospitalProvider hospitalProvider = HospitalProvider();

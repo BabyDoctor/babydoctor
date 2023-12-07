@@ -58,7 +58,8 @@ class HospitalProvider extends ChangeNotifier {
               code.dutyDiv?.contains('D') == false &&
               code.dutyDiv?.contains('E') == false &&
               code.dutyDiv?.contains('G') == false &&
-              code.dutyName?.contains('한의원') == false)
+              code.dutyName?.contains('한의원') == false &&
+              code.dutyName?.contains('치과') == false)
           .toList();
 
       List<HospitalCode>? listHospitalCode =

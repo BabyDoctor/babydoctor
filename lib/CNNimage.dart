@@ -172,7 +172,7 @@ class _CNNState extends State<CNN> {
       return "결과창입니다";
     } else {
       if (output[0][0] > output[0][1] && output[0][0] > output[0][2]) {
-        return "피부분석결과 아토피일 확률이 ${(output[0][0] * 100).floorToDouble()}%입니다";
+        return "피부분석결과 아토피 피부염일 확률이 ${(output[0][0] * 100).floorToDouble()}%입니다";
       } else if (output[0][1] > output[0][0] && output[0][1] > output[0][2]) {
         return "피부분석결과 습진일 확률이 ${(output[0][1] * 100).floorToDouble()}%입니다";
       } else if (output[0][2] > output[0][1] && output[0][2] > output[0][0]) {
